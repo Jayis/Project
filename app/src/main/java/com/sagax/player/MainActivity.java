@@ -1,6 +1,9 @@
 package com.sagax.player;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.sagax.player.R;
@@ -8,9 +11,15 @@ import com.sagax.player.R;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,7 +38,12 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+
 public class MainActivity extends Activity {
+    private static List<Map<String, Object>> DLQsongs;
+    public static DownloadManager dm;
+
 	private static Context context;
 	private static MediaManager mediaManager = null;
 	private static MusicManager musicManager = null;
@@ -75,6 +89,13 @@ public class MainActivity extends Activity {
  		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2 )
  			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
 
+        // Harry
+        DLQsongs = new ArrayList<Map<String, Object>>();
+        this.registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        //
+
 		try{
 		mediaManager = getMediaManagerInstance();
 		musicManager = getMusicManagerInstance();
@@ -88,12 +109,14 @@ public class MainActivity extends Activity {
 		display.getSize(size);
 		phoneWidth = size.x;
 		init();
-		current = statusList[0]; 
+		current = statusList[0];
+        /*
 		if(musicManager.getCurrSong() != null){
 			act.get(current).display();
 			act.get(current).setSwipe();
 			setClose();
 		}
+		*/
 	}
 	
     private ProgressDialog progressdialog;
@@ -255,6 +278,9 @@ public class MainActivity extends Activity {
    	 		act.get(string).finish();
    	 	
    	 	musicManager.release();
+
+        // Harry
+        this.unregisterReceiver(onComplete);
 	}
 	
     protected void onResume() {
@@ -301,4 +327,48 @@ public class MainActivity extends Activity {
 	    }
 		
 	}
+
+    BroadcastReceiver onComplete=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
+            // your code
+            //this_button.setText("in Local");
+            //tools.showString("complete", this_act);
+            long tmp_query;
+            Cursor tmp_cursor;
+            int tmp_status;
+            Button tmp_butt;
+            Song tmp_song;
+
+            for (int i = 0; i < DLQsongs.size(); i++ ) {
+                tmp_query = (Long) DLQsongs.get(i).get("queryID");
+                Log.d("qID", String.valueOf(tmp_query));
+                tmp_cursor = dm.query(new DownloadManager.Query().setFilterById(tmp_query));
+
+                if (tmp_cursor!=null) {
+                    tmp_cursor.moveToFirst();
+
+                    tmp_status = tmp_cursor.getInt(tmp_cursor.getColumnIndex(dm.COLUMN_STATUS));
+
+                    if (tmp_status == dm.STATUS_SUCCESSFUL) {
+                        // update Song in songList
+                        tmp_song = mediaManager.getSongByID((String) DLQsongs.get(i).get("songID"));
+                        tmp_song.status = 2;
+                        tmp_song.data = (String)DLQsongs.get(i).get("localurl");
+
+                        //
+                        tmp_butt = (Button) DLQsongs.get(i).get("DL_butt");
+                        tmp_butt.setText("Download Complete");
+
+                        DLQsongs.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+    };
+
+    public static DownloadManager shareDM () {
+        return dm;
+    }
+    public static List<Map<String, Object>> shareDLQ () {return DLQsongs;}
 }

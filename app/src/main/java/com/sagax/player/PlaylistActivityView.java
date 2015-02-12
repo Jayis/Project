@@ -295,7 +295,7 @@ public class PlaylistActivityView extends ActivityView {
 			else
 				contents.get(currentindex).setVisibility(ViewGroup.VISIBLE);		
 		}else{
-			playlistText.setText("no PlayList");
+			playlistText.setText("no PlayList (Harry)");
 		}
 	}
 	

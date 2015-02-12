@@ -48,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sagax.player.GalleryView.OnSelectedChangeListener;
 
@@ -194,15 +195,22 @@ public class AlbumListActivityView extends ActivityView {
 			@Override
 			public void onClick(View arg0) {
 				Playlist playlist = new Playlist(mediaManager.getSongsByAlbumID(allAlbum[currentindex]));
-				musicManager.setCurrentPlaylist(playlist);
-				musicManager.playIndex(0);
-				ActivityView av = activity.act.get(activity.statusList[2]);
-				av.finish();
-				av = activity.act.get(activity.statusList[0]);
-				activity.init();
-				av.display();
-				av.setSwipe();
-				activity.setClose();
+                if (playlist.good) {
+                    Log.d("status", "good song list");
+                    musicManager.setCurrentPlaylist(playlist);
+                    musicManager.playIndex(0);
+                    ActivityView av = activity.act.get(activity.statusList[2]);
+                    av.finish();
+                    av = activity.act.get(activity.statusList[0]);
+                    activity.init();
+                    av.display();
+                    av.setSwipe();
+                    activity.setClose();
+                }
+                else{
+                    Log.d("status", "all songs not in local");
+                    Toast.makeText(activity.getApplicationContext(), "All songs are not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                }
 			}
 		});
 		
@@ -245,15 +253,22 @@ public class AlbumListActivityView extends ActivityView {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,long arg3) {
 				Playlist playlist = new Playlist(mediaManager.getSongsByAlbumID(allAlbum[currentindex]));
-				musicManager.setCurrentPlaylist(playlist);
-				musicManager.playIndex(position);
-				ActivityView av = activity.act.get(activity.statusList[2]);
-				av.finish();
-				av = activity.act.get(activity.statusList[0]);
-				activity.init();
-				av.display();
-				av.setSwipe();
-				activity.setClose();
+                if (playlist.getSongIndex(position).status != 2) {
+                    Toast.makeText(activity.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                    Log.d("song status", "not in local");
+                }
+                else {
+                    Log.d("song status", "in local");
+                    musicManager.setCurrentPlaylist(playlist);
+                    musicManager.playIndex(position);
+                    ActivityView av = activity.act.get(activity.statusList[2]);
+                    av.finish();
+                    av = activity.act.get(activity.statusList[0]);
+                    activity.init();
+                    av.display();
+                    av.setSwipe();
+                    activity.setClose();
+                }
 			}
 			
 		});

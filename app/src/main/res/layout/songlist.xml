@@ -16,7 +16,7 @@
         android:layout_marginLeft="5dp"
         android:scaleType="centerInside"
         android:src="@drawable/column_play" />
-    
+    <!--
     <TextView
         android:id="@+id/songlength"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:text="Duration"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
-
+-->
     <TextView
         android:id="@+id/songtitle"
         android:layout_width="wrap_content"
@@ -46,5 +46,23 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
-    
+
+
+    <Button
+        android:id="@+id/button_DL"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxWidth="230dp"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="DL_the_song"
+        android:textSize="30px"
+        android:text="@string/DL_thisSong"
+        android:focusable="false"/>
+
 </RelativeLayout>

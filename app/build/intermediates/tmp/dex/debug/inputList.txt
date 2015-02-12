@@ -1,2 +1,2 @@
-/home/boyu/workspace/ArcStudio/Player/app/build/intermediates/classes/debug
-/home/boyu/workspace/ArcStudio/Player/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-cd660de21a557c877a744941362bcfa421c6f0db.jar
+D:\Users\JAYIS4176\AndroidStudioProjects\MobileClientPlayer\app\build\intermediates\classes\debug
+D:\Users\JAYIS4176\AndroidStudioProjects\MobileClientPlayer\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-0ac069aff64fff6adc1ed742ebc7f2bf03249743.jar

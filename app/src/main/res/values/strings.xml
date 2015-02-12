@@ -22,5 +22,16 @@
     <string name="delete">刪除本清單</string>
 	<string name="edit">編輯歌曲</string>
 	<string name="newsong">新增播放清單</string>
+
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="resume_login">Resume Last Login</string>
+    <string name="title_activity_login_main">LoginMainActivity</string>
+    <string name="title_activity_player_main">PlayerMainActivity</string>
+    <string name="title_activity_check_song_list">CheckSongListActivity</string>
+    <string name="DL_thisSong">Download</string>
+
+    <string name="preference_lastUser">preference_lastUser</string>
 	
 </resources>

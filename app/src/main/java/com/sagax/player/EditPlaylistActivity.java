@@ -298,24 +298,25 @@ public class EditPlaylistActivity extends Activity {
 	}
 	
 	protected  void mini_refresh() {
-		if(mminiSong != null)
-			mminiSong.setText(musicManager.getCurrSong().filename);
-		
-		if (musicManager.isPlaying()) {
-			mplay.setImageResource(R.drawable.mini_pause);
-			if(notification2 != null){
-				handler2.removeCallbacks(notification2);
-			}
-			notification2 = new Runnable() {
-				public void run() {
-					mini_refresh();
-				}
-			};
-			handler2.postDelayed(notification2,100);
-		}
-		else{
-			mplay.setImageResource(R.drawable.mini_play);
-		}
+        if (musicManager.getCurrSong() != null) {
+            if (mminiSong != null)
+                mminiSong.setText(musicManager.getCurrSong().filename);
+
+            if (musicManager.isPlaying()) {
+                mplay.setImageResource(R.drawable.mini_pause);
+                if (notification2 != null) {
+                    handler2.removeCallbacks(notification2);
+                }
+                notification2 = new Runnable() {
+                    public void run() {
+                        mini_refresh();
+                    }
+                };
+                handler2.postDelayed(notification2, 100);
+            } else {
+                mplay.setImageResource(R.drawable.mini_play);
+            }
+        }
 	}
 	
 	private DragSortListView.DropListener onDrop =

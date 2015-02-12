@@ -22,14 +22,19 @@ public class Song implements Serializable {
 	public String album;
 	public String title;
 	public String data;
+    public String genre;
 	public long album_id;
 	public String filename;
 	public int duration;
 	public Uri albumPath;
+    public int status;
+    public String url;
+    public int eqon;
+
 	public Song(String title){
-		this("-1","-1","-1",title,"-1","-1",-1);
+		this("-1","null","null",title,"null","-1",-1, "null", "null", "null", -1);
 	}
-	public Song(String id,String artist,String album,String title,String data,String album_id,int duration) {
+	public Song(String id,String artist,String album,String title,String data,String album_id,int duration, String genre, String url, String filename, Integer eqon) {
 		this.id = id;
 		this.album = album;
 		this.title = title;
@@ -37,12 +42,32 @@ public class Song implements Serializable {
 		this.artist = artist;
 		this.album_id =  (long) Integer.parseInt(album_id);
 		this.duration = duration;
+        this.genre = genre;
+        this.url = url;
+
+        if (eqon == 1) {
+            this.eqon = 1;
+        }
+        else {
+            this.eqon = 0;
+        }
 		
-		String[] token = data.split("/");
-		filename = token[token.length-1];
+		//String[] token = data.split("/");
+		//filename = token[token.length-1];
+        this.filename = filename;
 		
-		Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
-		albumPath = ContentUris.withAppendedId(sArtworkUri, this.album_id);
+		//Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
+		//albumPath = ContentUris.withAppendedId(sArtworkUri, this.album_id);
+        albumPath = null;
+
+        // status:
+        // 0 -> not in local,1 -> downloading, 2 -> in local
+        if (data.compareTo("null") == 0) {
+            this.status = 0;
+        }
+        else {
+            this.status = 2;
+        }
 	}
 	@SuppressLint("DefaultLocale")
 	public String gtDuration(){

@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AllListAdapter extends ArrayAdapter<Cata>{
     	private LayoutInflater li;
@@ -52,6 +53,7 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     		super(context, viewid);
     		catamap = new HashMap<String,Cata>();
     		selectList = new ArrayList<Song>();
+
     		this.type = type;
     		int id=0;
     		for(int i =0; i<songs.size();i++){
@@ -179,7 +181,7 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     		public int getCount(){
     			return songs.size();
     		}
-    		public View getView(int pos, View convertView, ViewGroup parent){
+    		public View getView(final int pos, View convertView, ViewGroup parent){
         		ViewHolder holder = null;
         		final Song currSong=getItem(pos);
         		
@@ -218,17 +220,24 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
 							@Override
 							public void onClick(View arg0) {
 								// TODO Auto-generated method stub
-								ArrayList<Song> tmpArrayList = mediaManager.getAllSong();
-								Playlist playlist = new Playlist(tmpArrayList);
-								musicManager.setCurrentPlaylist(playlist);
-								musicManager.playIndex(tmpArrayList.indexOf(currSong));
-								ActivityView av = activity.act.get(activity.statusList[3]);
-								av.finish();
-								av = activity.act.get(activity.statusList[0]);
-								activity.init();
-								av.display();
-								av.setSwipe();
-								activity.setClose();
+                                if (currSong.status != 2) {
+                                    Toast.makeText(activity.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                                    Log.d("song status", "not in local");
+                                }
+                                else {
+                                    Log.d("song status", "in local");
+                                    ArrayList<Song> tmpArrayList = mediaManager.getAllSong();
+                                    Playlist playlist = new Playlist(tmpArrayList);
+                                    musicManager.setCurrentPlaylist(playlist);
+                                    musicManager.playIndex(tmpArrayList.indexOf(currSong));
+                                    ActivityView av = activity.act.get(activity.statusList[3]);
+                                    av.finish();
+                                    av = activity.act.get(activity.statusList[0]);
+                                    activity.init();
+                                    av.display();
+                                    av.setSwipe();
+                                    activity.setClose();
+                                }
 							}
 						});
         			}
@@ -247,11 +256,13 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     				holder.duration.setTextColor(Color.rgb(255, 255, 255));	
         		}
         		else{
-            		if(!musicManager.getCurrSong().id.equals(currSong.id)){
-            			holder.currentImageView.setVisibility(ViewGroup.INVISIBLE);
-            			holder.title.setTextColor(Color.rgb(255, 255, 255));	
-            			holder.duration.setTextColor(Color.rgb(255, 255, 255));	
-            		}
+                    if (musicManager.getCurrSong() != null) {
+                        if(!musicManager.getCurrSong().id.equals(currSong.id)){
+                            holder.currentImageView.setVisibility(ViewGroup.INVISIBLE);
+                            holder.title.setTextColor(Color.rgb(255, 255, 255));
+                            holder.duration.setTextColor(Color.rgb(255, 255, 255));
+                        }
+                    }
         		}
 
 

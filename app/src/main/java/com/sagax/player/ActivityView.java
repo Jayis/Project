@@ -120,7 +120,7 @@ public abstract class ActivityView {
 		mini_refresh();
 		int count = mediaManager.getAllSong().size();
 
-		if(count > 0){
+		if(count > 0 && musicManager.getCurrSong() != null){
 			mminiSong.setOnClickListener(new OnClickListener() {
 				
 				@Override

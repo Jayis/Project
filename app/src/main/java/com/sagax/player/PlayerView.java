@@ -76,8 +76,7 @@ public class PlayerView extends ActivityView{
 	
 	private Song songNow = null;
 	
-	public static int people = 5566; 
-	
+	public static int people = 5566;
 	
 	@Override
 	public void display() {
@@ -102,19 +101,19 @@ public class PlayerView extends ActivityView{
 	@SuppressLint("NewApi")
 	private void setUpUI(){
 		textView = (TextView)activity.findViewById(R.id.textView2);
-		textView.setText(currentSong.filename); 
+		// textView.setText(currentSong.filename);
 		
 		album = (TextView)activity.findViewById(R.id.textView4);
-		album.setText(currentSong.album);
+		//album.setText(currentSong.album);
 		
 		artist = (TextView)activity.findViewById(R.id.textView3);
-		artist.setText(currentSong.artist);
+		// artist.setText(currentSong.artist);
 		
 		duration = (TextView)activity.findViewById(R.id.textView5);
-		duration.setText(currentSong.gtDuration());
-		/*currentTime = (TextView)activity.findViewById(R.id.textView1);
-		currentTime.setText(musicManager.getCurrentTime());*/
-		
+		// duration.setText(currentSong.gtDuration());
+		// *currentTime = (TextView)activity.findViewById(R.id.textView1);
+		// currentTime.setText(musicManager.getCurrentTime());*/
+
 		play = (ImageButton)activity.findViewById(R.id.imageButton5);
 		next = (ImageButton)activity.findViewById(R.id.imageButton2);
 		prev = (ImageButton)activity.findViewById(R.id.imageButton1);
@@ -130,8 +129,8 @@ public class PlayerView extends ActivityView{
 		
 		circularSeekBar = (CircularSeekBar)activity.findViewById(R.id.circularSeekBar1);
 
-		circularSeekBar.setMax(currentSong.duration);
-		circularSeekBar.setProgress(0);	
+		// circularSeekBar.setMax(currentSong.duration);
+		// circularSeekBar.setProgress(0);
 		cover = (ImageViewRecyclable)activity.findViewById(R.id.imageView4);
 		area = (ImageView)activity.findViewById(R.id.imageView3);
 		
@@ -171,16 +170,20 @@ public class PlayerView extends ActivityView{
 					play.setImageResource(R.drawable.pause);
 					refresh();
 				}else{
-					Toast.makeText(activity, "Last Song of Playlist!", 2000).show();
+					Toast.makeText(activity, "Last Song of Playlist!", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
 		prev.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				musicManager.playPrev();
-				play.setImageResource(R.drawable.pause);
-				refresh();
+				if(musicManager.playPrev()) {
+                    play.setImageResource(R.drawable.pause);
+                    refresh();
+                }
+                else{
+                    Toast.makeText(activity, "First Song of Playlist!", Toast.LENGTH_SHORT).show();
+                }
 			}
 		});
 		random.setOnClickListener(new OnClickListener() {
@@ -308,7 +311,7 @@ public class PlayerView extends ActivityView{
 		}
 		if (musicManager.isPlaying()) {
 			Song tmp = musicManager.getCurrSong();
-			if(tmp != songNow){
+			if(tmp != null && tmp != songNow){
 				songNow = tmp;
 				refresh();
 			}

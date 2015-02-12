@@ -9,16 +9,28 @@ import java.util.Map;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
 public class MediaManager
 {
-	
+
+    private String songTableName;
+    private Cursor cursor_songs;
+    private SQLiteDatabase database;
+    private SharedPreferences sharedPref;
+
+    private long curNewAlbumID;
+    private long curNewArtistID;
+    private long curNewGenreID;
+    ///
+
 	private Context context;
-	private Cursor mediaCursor , playlistCursor;
+	private Cursor playlistCursor;
 	private Playlist currentPlaylist;
 
     
@@ -54,10 +66,15 @@ public class MediaManager
 	private ArrayList<Song> songList;
 	// store all keys( Artists,Albums ) with song's ID 
 	private Map<String,ArrayList<String>> albumMap;
-	private Map<String,String> albumTitleMap;
+    private Map<String,String> albumTitleMaptoID;
+    private Map<String,String> albumIDMaptoTitle;
 
 	private Map<String,ArrayList<String>> artistMap;
-	private Map<String,String> artistNameMap;
+	private Map<String,String> artistNameMaptoID;
+    private Map<String,String> artistIDMaptoName;
+
+    private Map<String,String> genreTypeMaptoID;
+    private Map<String,String> genreIDMaptoType;
 
 	private Map<String,Uri> albumArtMap;
 	
@@ -71,16 +88,13 @@ public class MediaManager
 
 
 	public MediaManager(Context context){
-		this.context = context;
-	    mediaCursor = context.getContentResolver().query(
-														 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-						 								 projection,
-														 MediaStore.Audio.Media.IS_MUSIC+"!=?",
-														 new String[]{"0"},
-														 MediaStore.Audio.Media.TITLE_KEY + " ASC"
-														 );
-		this.numberOfSongs = mediaCursor.getCount();
-        
+        sharedPref = LoginMainActivity.shareSharePref();
+        songTableName = sharedPref.getString("songTable", null);
+        database = LoginMainActivity.shareDB();
+        cursor_songs = database.rawQuery("SELECT * FROM " + songTableName, null);
+
+		this.numberOfSongs = cursor_songs.getCount();
+        /*
         playlistCursor = context.getContentResolver().query(
                                                             MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                                                             projection_playlist,
@@ -88,19 +102,30 @@ public class MediaManager
                                                             new String[] { "0" },
                                                             MediaStore.Audio.Playlists.DATE_ADDED
                                                             );
-        
+        */
 
 		initAllLists();
 	}
 	
 	public String[] getAllTypeID(){
-		if( genreMap==null){
-			initTypeList();
-		}
-		return genreList.toArray(new String[0]);
+        ArrayList<String> allGenreID = new ArrayList<String>();
+
+        for (int i = 0; i < genreTypeMaptoID.size(); i++) {
+            allGenreID.add(String.valueOf(i));
+        }
+
+        return allGenreID.toArray(new String[0]);
 	}
 	
 	public String[] getAllAlbumID(){
+        ArrayList<String> allAlbumID = new ArrayList<String>();
+
+        for (int i = 0; i < albumTitleMaptoID.size(); i++) {
+            allAlbumID.add(String.valueOf(i));
+        }
+
+        return allAlbumID.toArray(new String[0]);
+        /*
 		mediaCursor = context.getContentResolver().query(
 				 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
 				 new String[]{ MediaStore.Audio.Media.ALBUM_ID , MediaStore.Audio.Media.ALBUM },
@@ -124,10 +149,20 @@ public class MediaManager
 		mediaCursor.close();
 		return sortedAlbumID.toArray(new String[0]);
 		//return albumTitleMap.keySet().toArray(new String[0]);
+		*/
 	}
 
 	public String[] getAllArtistID(){
+        ArrayList<String> allArtistID = new ArrayList<String>();
+
+        for (int i = 0; i < artistNameMaptoID.size(); i++) {
+            allArtistID.add(String.valueOf(i));
+        }
+
+        return allArtistID.toArray(new String[0]);
+        /*
 		return artistNameMap.keySet().toArray(new String[0]);
+		*/
 	}
 
 	public String[] getAllSongID(){
@@ -144,14 +179,30 @@ public class MediaManager
 
 	
 	public ArrayList<Song> getSongsByTypeID(String typeID){
+
+        String qType = genreIDMaptoType.get(typeID);
+
+        cursor_songs = database.rawQuery("SELECT " + DBHelper.COLUMN_SERVERID + " FROM " + songTableName + " WHERE " + DBHelper.COLUMN_GENRE + " = '" + qType + "'", null);
+
+        cursor_songs.moveToFirst();
+
+        ArrayList<Song> list = new ArrayList<Song>();
+        for (int i = 0; i < cursor_songs.getCount(); i++) {
+            list.add( songMap.get( String.valueOf( cursor_songs.getInt(cursor_songs.getColumnIndex(DBHelper.COLUMN_SERVERID)) ) ) );
+        }
+        cursor_songs.close();
+        currentPlaylist = new Playlist( list );
+
+        return list;
+/*
 		if( genreMap==null){
 			initTypeList();
 		}
 		// if the album can not be found , return null
 		if( !genreMap.containsKey( typeID ) )
 			return null;
-		
-		// append genre member uri 
+
+		// append genre member uri
 		String CONTENTDIR = MediaStore.Audio.Genres.Members.CONTENT_DIRECTORY;
 		Uri uri = Uri.parse(
 	            new StringBuilder()
@@ -161,25 +212,26 @@ public class MediaManager
 	            .append("/")
 	            .append(CONTENTDIR)
 	            .toString());
-		
-		// query the db for list of song id of same genre 
+
+		// query the db for list of song id of same genre
 		mediaCursor = context.getContentResolver().query(
 				uri,
 				new String[]{ MediaStore.Audio.Media._ID ,
 							},
 				null,
 			 	null,
-			 	MediaStore.Audio.Media.TITLE_KEY 
+			 	MediaStore.Audio.Media.TITLE_KEY
 		  );
-		
+
 		ArrayList<Song> list = new ArrayList<Song>();
 		for(mediaCursor.moveToFirst() ; !mediaCursor.isAfterLast(); mediaCursor.moveToNext() ){
 			list.add( songMap.get( mediaCursor.getString(0) ) );
 		}
 		mediaCursor.close();
 		currentPlaylist = new Playlist( list );
-		
+
 		return list;
+		*/
 	}
 	
 	public ArrayList<Song> getSongsByAlbumID(String albumID){
@@ -209,15 +261,15 @@ public class MediaManager
 	}
 
 	public String getTypeNameByID(String typeID){
-		return genreMap.get(typeID);
+		return genreIDMaptoType.get(typeID);
 	}
 	
 	public String getAlbumNameByID(String albumID){
-		return albumTitleMap.get(albumID);
+		return albumIDMaptoTitle.get(albumID);
 	}
 
 	public String getArtistNameByID(String artistID){
-		return artistNameMap.get(artistID);
+		return artistIDMaptoName.get(artistID);
 	}
 
 	public String getSongNameByID(String SongID){
@@ -253,52 +305,72 @@ public class MediaManager
 		this.songList = new ArrayList<Song>();
 		// init all attribute lists.
 		this.albumMap = new HashMap<String,ArrayList<String>>();
-		this.albumTitleMap = new HashMap<String,String>();
+		this.albumTitleMaptoID = new HashMap<String,String>();
+        this.albumIDMaptoTitle = new HashMap<String,String>();
+
 		this.albumArtMap = new HashMap<String,Uri>();
 		
 		this.artistMap = new HashMap<String,ArrayList<String>>();
-		this.artistNameMap = new HashMap<String,String>();
+		this.artistNameMaptoID = new HashMap<String,String>();
+        this.artistIDMaptoName = new HashMap<String,String>();
 
-		
+        this.genreTypeMaptoID = new HashMap<String,String>();
+        this.genreIDMaptoType = new HashMap<String,String>();
 
+		curNewAlbumID = 0;
+        curNewArtistID = 0;
+        curNewGenreID = 0;
 
 		// move the cursor to the first row( Song )
-		mediaCursor.moveToFirst();
+		cursor_songs.moveToFirst();
 		// iterate the cursor
-		for( int i=0; i < mediaCursor.getCount(); i++ ){
-			Song currentSong = createSong( mediaCursor );
-			if(currentSong == null){
-			}
+		for( int i=0; i < cursor_songs.getCount(); i++ ){
+            if ( !albumTitleMaptoID.containsKey(cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ALBUM))) ) {
+                albumTitleMaptoID.put( cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ALBUM)), String.valueOf(curNewAlbumID) );
+                albumIDMaptoTitle.put( String.valueOf(curNewAlbumID), cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ALBUM)) );
+                curNewAlbumID++;
+            }
+            if ( !artistNameMaptoID.containsKey(cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ARTIST))) ) {
+                artistNameMaptoID.put( cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ARTIST)), String.valueOf(curNewArtistID) );
+                artistIDMaptoName.put( String.valueOf(curNewArtistID), cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_ARTIST)) );
+                curNewArtistID++;
+            }
+            if ( !genreTypeMaptoID.containsKey(cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_GENRE))) ) {
+                genreTypeMaptoID.put( cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_GENRE)), String.valueOf(curNewGenreID) );
+                genreIDMaptoType.put( String.valueOf(curNewGenreID), cursor_songs.getString(cursor_songs.getColumnIndex(DBHelper.COLUMN_GENRE)) );
+                curNewGenreID++;
+            }
+
+			Song currentSong = createSong( cursor_songs );
+
 			songList.add(currentSong);
-			songMap.put( mediaCursor.getString( MEDIA_ID ), currentSong );
+			songMap.put( currentSong.id, currentSong );
 
 			// use parsed album art Uri as value
-			if( !albumMap.containsKey( mediaCursor.getString( MEDIA_ALBUM_ID ) )){
-				albumMap.put( mediaCursor.getString( MEDIA_ALBUM_ID ) , new ArrayList<String>() );
-				albumArtMap.put( mediaCursor.getString( MEDIA_ALBUM_ID ) , currentSong.albumPath ); 
-				albumTitleMap.put( mediaCursor.getString( MEDIA_ALBUM_ID ) , currentSong.album );
+			if( !albumMap.containsKey( String.valueOf(currentSong.album_id) )){
+				albumMap.put( String.valueOf(currentSong.album_id) , new ArrayList<String>() );
+				albumArtMap.put( String.valueOf(currentSong.album_id) , currentSong.albumPath );
 			}
 
-			
-			if( !artistMap.containsKey( mediaCursor.getString( MEDIA_ARTIST_ID ) )){
-				artistMap.put( mediaCursor.getString( MEDIA_ARTIST_ID ) , new ArrayList<String>() );
-				artistNameMap.put( mediaCursor.getString( MEDIA_ARTIST_ID ) , mediaCursor.getString( MEDIA_ARTIST ) );
+			if( !artistMap.containsKey( artistNameMaptoID.get(currentSong.artist) )){
+				artistMap.put( artistNameMaptoID.get(currentSong.artist) , new ArrayList<String>() );
 			}
-			
-		
+
 
 			// add ID to list
-			albumMap.get( mediaCursor.getString( MEDIA_ALBUM_ID )).add( mediaCursor.getString(MEDIA_ID));
-			artistMap.get( mediaCursor.getString( MEDIA_ARTIST_ID )).add( mediaCursor.getString(MEDIA_ID));
-			
-			
-			mediaCursor.moveToNext();
+			albumMap.get( String.valueOf(currentSong.album_id) ).add( currentSong.id );
+			artistMap.get( artistNameMaptoID.get(currentSong.artist) ).add( currentSong.id );
+
+
+            cursor_songs.moveToNext();
 		}
-        
-        mediaCursor.close();
+
+        cursor_songs.close();
+
+
         // init playlist map
         playlistMap = new HashMap<String,String>();
-        
+        /*
         playlistCursor.moveToFirst();
         for( int i=0; i<playlistCursor.getCount(); i++ ){
         
@@ -309,10 +381,15 @@ public class MediaManager
             playlistCursor.moveToNext();
         }
         playlistCursor.close();
+        */
 	}
 	
-	
+	/*
 	private void initTypeList(){
+
+
+
+
 		mediaCursor = context.getContentResolver().query(
 							MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI,
 							new String[]{ MediaStore.Audio.Genres._ID ,
@@ -334,13 +411,6 @@ public class MediaManager
 		for( int i=0; i < mediaCursor.getCount(); i++ ){
 			//System.out.println( "CONTENT:" + mediaCursor.getString( 1 ) );
 
-			/*
-			if( !genreMap.containsKey( String.valueOf( mediaCursor.getString( 0 )) ) ){
-				genreMap.put( String.valueOf( mediaCursor.getString( 0 )) , mediaCursor.getString( 1 ) );
-			}
-			
-			genreList.add( mediaCursor.getString( 0 ) );
-			*/
 			genreID.add( mediaCursor.getString( 0 ) );
 			genreName.add( mediaCursor.getString( 1 ) );
 			
@@ -382,19 +452,21 @@ public class MediaManager
 			
 		}
 		 
-		
+
 	}
-	
+	*/
 	
 
     public String[] getAllPlaylistID(){
         return playlistMap.keySet().toArray(new String[0]);
     }
-    
+
+
     public String getPlaylistNameByID(String id){
         return playlistMap.get(id);
     }
-    
+
+
     public ArrayList<Song> getPlaylistByID(String id){
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri("external", Long.parseLong(id) );
         Cursor c = context.getContentResolver().query(
@@ -422,7 +494,7 @@ public class MediaManager
         c.close();
         return playlist;
     }
-    
+
 	public int createPlaylist( String playlistName ){
         ContentValues values = new ContentValues(1);
         values.put(MediaStore.Audio.Playlists.NAME, playlistName);
@@ -557,6 +629,20 @@ public class MediaManager
 	// create new song by current cursor
 	// make sure the cursor is in legal position or it'll have unpredicable behavior.
 	private Song createSong(Cursor c){
+        return new Song(
+                String.valueOf(c.getInt(c.getColumnIndex(DBHelper.COLUMN_SERVERID))) ,
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_ARTIST)) ,
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_ALBUM)) ,
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_TITLE)) ,
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_LOCALURI)) ,
+                albumTitleMaptoID.get(c.getString(c.getColumnIndex(DBHelper.COLUMN_ALBUM))) ,
+                300,
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_GENRE)),
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_URL)),
+                c.getString(c.getColumnIndex(DBHelper.COLUMN_FILENAME)),
+                c.getInt(c.getColumnIndex(DBHelper.COLUMN_EQON))
+        );
+        /*
 		return new Song( c.getString(MEDIA_ID) ,
 						 c.getString(MEDIA_ARTIST) ,
 						 c.getString(MEDIA_ALBUM) ,
@@ -565,6 +651,7 @@ public class MediaManager
 						 c.getString(MEDIA_ALBUM_ID) ,
 						 c.getInt(MEDIA_DURATION)
 					    );
+					    */
 	}
 
 }

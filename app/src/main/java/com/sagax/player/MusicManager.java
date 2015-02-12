@@ -38,7 +38,7 @@ public class MusicManager {
 		//playlist = new Playlist(context);
 		playlist = mediaManager.getPlaylist();
 		eqManager=new EQManager(context);
-		eqManager.addList(mediaManager.getAllSong());
+		//eqManager.addList(mediaManager.getAllSong());
 		am = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
 		setUpMediaPlayer();
 		initGenreClassifier();
@@ -67,7 +67,6 @@ public class MusicManager {
 				mediaPlayer.pause();
 				eqManager.setPlay(currentSong,mediaPlayer.getAudioSessionId());
 			}
-			eqManager.kick();
 			
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
@@ -119,7 +118,13 @@ public class MusicManager {
     }
     
 	public Song getCurrSong(){
-		return playlist.getCurrSong();
+        Song tmp_song = playlist.getCurrSong();;
+/*
+        if (tmp_song == null) {
+            tmp_song = new Song("null");
+        }
+*/
+		return tmp_song;
 	}
     
 	public boolean playNext(){
@@ -184,14 +189,17 @@ public class MusicManager {
 	
 	public boolean playPrev(){
 		Song song = playlist.getPrevSong();
-		mediaPlayer.stop();
-		mediaPlayer.reset();
+
 		try {
-			mediaPlayer.setDataSource(song.data);
-			mediaPlayer.prepare();
-			mediaPlayer.start();
-			eqManager.setPlay(song,mediaPlayer.getAudioSessionId());
-			return true;
+            if (song != null) {
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(song.data);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                eqManager.setPlay(song, mediaPlayer.getAudioSessionId());
+                return true;
+            }
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

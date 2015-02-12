@@ -28,12 +28,15 @@ public class Playlist implements Serializable {
 	private boolean randomOn = false;
 	private String listName;
 	private boolean repeatFlag = false;
+    public boolean good = false;
 	//private String avatarPath;
 	
 	
 	public Playlist(ArrayList<Song> playList){
 		this.songsList = playList;
+
 		if(songsList.size() > 0)
+            good = anySongInLocal();
 			setRandomList();
 	}
 	
@@ -55,33 +58,66 @@ public class Playlist implements Serializable {
 	}
 	
 	public Song getNextSong(){
+
 		if(!repeatFlag){
-			if(current == songsList.size() - 1)
-				return null;
+			if(current == songsList.size() - 1) {
+                Log.d("getNextSong", "reach end");
+                return null;
+            }
 		}
+
+        Song cur_song;
+
 		if(randomOn){
 			randomCurrent = (randomCurrent+1)%songsList.size();
 			current = songsList.indexOf(randomSongsList.get(randomCurrent));
-			return randomSongsList.get(randomCurrent);
+
+            cur_song = randomSongsList.get(randomCurrent);
 		}
 		else{
 			current = (current+1)%songsList.size();
 			randomCurrent = randomSongsList.indexOf(songsList.get(current));
-			return songsList.get(current);
+
+            cur_song = songsList.get(current);
 		}
+
+        if (cur_song.status != 2) {
+            Log.d("getNextSong", "not in local, next");
+            return this.getNextSong();
+        }
+        else {
+            Log.d("getNextSong", "in local");
+            return cur_song;
+        }
 	}
 	
 	public Song getPrevSong(){
+        if(!repeatFlag){
+            if(current == 0)
+                return null;
+        }
+
+        Song cur_song;
+
 		if(randomOn){
 			randomCurrent = (randomCurrent-1)%songsList.size();
 			current = songsList.indexOf(randomSongsList.get(randomCurrent));
-			return randomSongsList.get(randomCurrent);
-		}
+
+            cur_song = randomSongsList.get(randomCurrent);
+        }
 		else{
 			current = (current + songsList.size() - 1)%songsList.size();
 			randomCurrent = randomSongsList.indexOf(songsList.get(current));
-			return songsList.get(current);
+
+            cur_song = songsList.get(current);
 		}
+
+        if (cur_song.status != 2) {
+            return this.getPrevSong();
+        }
+        else {
+            return cur_song;
+        }
 	}	
 	
 	public Song getSongIndex(int index){
@@ -90,10 +126,14 @@ public class Playlist implements Serializable {
 	}
 	
 	public Song getCurrSong(){
-		if(songsList.size() > 0)
-			return songsList.get(current);
-		else 
-			return null;
+		if(songsList.size() > 0) {
+            Song curSong = songsList.get(current);
+            if(curSong.status == 2) {
+                return curSong;
+            }
+        }
+
+	    return null;
 	}
 	public boolean toggleRandom(){
 		if(randomOn)
@@ -139,4 +179,19 @@ public class Playlist implements Serializable {
 	public String getListName(){
 		return this.listName;
 	}
+
+    public boolean anySongInLocal() {
+        boolean any = false;
+        Song curSong;
+
+        for (int i = 0; i < songsList.size(); i++) {
+            curSong = songsList.get(i);
+            if (curSong.status == 2) {
+                any = true;
+                break;
+            }
+        }
+
+        return any;
+    }
 }
