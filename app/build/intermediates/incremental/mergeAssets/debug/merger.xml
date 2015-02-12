@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/boyu/workspace/ArcStudio/Player/app/src/main/assets"><file name="fonts/BoldItalic.ttf" path="/home/boyu/workspace/ArcStudio/Player/app/src/main/assets/fonts/BoldItalic.ttf"/><file name="fonts/W5.ttf" path="/home/boyu/workspace/ArcStudio/Player/app/src/main/assets/fonts/W5.ttf"/></source></dataSet><dataSet config="debug"><source path="/home/boyu/workspace/ArcStudio/Player/app/src/debug/assets"/></dataSet></merger>

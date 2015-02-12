@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/attrs.xml -->
+    <eat-comment/>
+    <attr format="dimension|reference" name="childSize"/>
+    <attr format="float|reference" name="fromDegrees"/>
+    <attr format="float|reference" name="toDegrees"/>
+    <declare-styleable name="ArcLayout"><attr name="fromDegrees"/><attr name="toDegrees"/><attr name="childSize"/></declare-styleable>
+    <declare-styleable name="ArcMenu"><attr name="fromDegrees"/><attr name="toDegrees"/><attr name="childSize"/></declare-styleable>
+    <declare-styleable name="ArcScrollView"/>
+    <declare-styleable name="CircularSeekBar"><attr format="integer" name="progress"/><attr format="integer" name="max"/><attr format="boolean" name="move_outside_circle"/><attr format="boolean" name="maintain_equal_circle"/><attr format="boolean" name="use_custom_radii"/><attr format="float" name="circle_x_radius"/><attr format="float" name="circle_y_radius"/><attr format="float" name="circle_stroke_width"/><attr format="float" name="pointer_radius"/><attr format="float" name="pointer_halo_width"/><attr format="float" name="pointer_halo_border_width"/><attr format="string" name="circle_color"/><attr format="string" name="circle_progress_color"/><attr format="string" name="pointer_color"/><attr format="string" name="pointer_halo_color"/><attr format="integer" name="pointer_alpha_ontouch"/><attr format="float" name="start_angle"/><attr format="float" name="end_angle"/><attr format="string" name="circle_fill"/></declare-styleable>
+    <declare-styleable name="DragSortListView"><attr format="dimension" name="collapsed_height"/><attr format="float" name="drag_scroll_start"/><attr format="float" name="max_drag_scroll_speed"/><attr format="color" name="float_background_color"/><attr name="remove_mode"><enum name="clickRemove" value="0"/><enum name="flingRemove" value="1"/></attr><attr format="boolean" name="track_drag_sort"/><attr format="float" name="float_alpha"/><attr format="float" name="slide_shuffle_speed"/><attr format="integer" name="remove_animation_duration"/><attr format="integer" name="drop_animation_duration"/><attr format="boolean" name="drag_enabled"/><attr format="boolean" name="sort_enabled"/><attr format="boolean" name="remove_enabled"/><attr name="drag_start_mode"><enum name="onDown" value="0"/><enum name="onMove" value="1"/><enum name="onLongPress" value="2"/></attr><attr format="integer" name="drag_handle_id"/><attr format="integer" name="fling_handle_id"/><attr format="integer" name="click_remove_id"/><attr format="boolean" name="use_default_controller"/></declare-styleable>
+    <declare-styleable name="HorizontalListView"><attr format="dimension" name="dividerWidth"/><attr name="android:divider"/><attr name="android:requiresFadingEdge"/><attr name="android:fadingEdgeLength"/></declare-styleable>
+    <declare-styleable name="ImageViewRecyclable"/>
+    <declare-styleable name="RayLayout"><attr format="dimension" name="leftHolderWidth"/></declare-styleable>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/dimens2.xml -->
+    <eat-comment/>
+    <dimen name="item_height">67dp</dimen>
+    <dimen name="section_div_height">20dp</dimen>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="click_remove" type="id"/>
+    <item name="drag_handle" type="id"/>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="album">專輯</string>
+    <string name="app_name">Sagax Player</string>
+    <string name="artist">演出者</string>
+    <string name="delete">刪除本清單</string>
+    <string name="edit">編輯歌曲</string>
+    <string name="hello_world">This is a player</string>
+    <string name="home">主頁</string>
+    <string name="medium_text">Medium Text</string>
+    <string name="newsong">新增播放清單</string>
+    <string name="pause_str">PAUSE</string>
+    <string name="play_str">PLAY</string>
+    <string name="playlist">播放清單</string>
+    <string name="song">歌曲</string>
+    <string name="song_str">Song</string>
+    <string name="title_activity_album_list">AlbumListActivity</string>
+    <string name="title_activity_custom_playlist">CustomPlaylistActivity</string>
+    <string name="title_activity_music_list">MusicListActivity</string>
+    <string name="title_activity_musictype_list">MusictypeListActivity</string>
+    <!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTitleSize">45dip</item>
+        <item name="android:padding">0dip</item>
+    </style>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/blank" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/editx" />
+
+	   	<ImageButton
+	        android:id="@+id/play"
+	        android:layout_width="40dp"
+	        android:layout_height="40dp"   
+	        android:background="@null"
+	        android:scaleType="centerInside"
+	        android:layout_marginLeft="5dp"
+	        android:src="@drawable/playx" />
+    </LinearLayout>
+</RelativeLayout>
+<!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout/playlistcell.xml -->

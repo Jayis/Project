@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_w"
+    android:id="@+id/backlayout"
+    android:clickable="true">
+    
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:gravity="left"
+         android:orientation="vertical" >
+
+         <Button
+             android:id="@+id/home"
+             android:layout_width="240dp"
+             android:layout_height="45dp"
+             android:layout_marginLeft="10dp"
+             android:layout_marginTop="50dp"
+             android:background="@null"
+             android:cropToPadding="false"
+             android:focusableInTouchMode="false"
+             android:gravity="center_vertical|center_horizontal|left"
+             android:paddingLeft="55dp"
+             android:paddingRight="5dp"
+             android:text="@string/home"
+             android:textColor="#FFFFFF" />
+ 
+  	        <Button
+  	            android:id="@+id/artist"
+  	            android:layout_width="240dp"
+  	            android:layout_height="45dp"
+  	            android:layout_marginTop="10dp"
+  	            android:background="@drawable/column_wx"
+  	            android:cropToPadding="false"
+  	            android:drawableLeft="@drawable/fartist"
+  	            android:focusableInTouchMode="false"
+  	            android:gravity="left|center_vertical"
+  	            android:paddingLeft="5dp"
+  	            android:paddingRight="5dp"
+  	            android:text="@string/artist"
+  	            android:textColor="#FFFFFF" />
+
+  	        <Button
+                android:id="@+id/album"
+  	            android:layout_width="240dp"
+  	            android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/column_wx"
+                android:cropToPadding="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:scaleType="fitCenter"
+                android:drawableLeft="@drawable/falbum"
+                android:textColor="#FFFFFF"
+                android:text="@string/album"/> 
+  	        	
+  	        <Button
+                android:id="@+id/song"
+  	            android:layout_width="240dp"
+  	            android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+				android:background="@drawable/column_wx"
+                android:cropToPadding="false"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitCenter"
+                android:drawableLeft="@drawable/fsong"
+                android:textColor="#FFFFFF"
+                android:drawablePadding="3dp"
+                android:text="@string/song"/>     	
+
+  	        <Button
+                android:id="@+id/playlist"
+  	            android:layout_width="240dp"
+  	            android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/column_wx"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:cropToPadding="false"
+                android:focusableInTouchMode="false"
+                android:scaleType="fitCenter"
+                android:drawableLeft="@drawable/fplaylist"
+                android:textColor="#FFFFFF"
+                android:text="@string/playlist"/>      	        
+  	        
+	</LinearLayout>
+
+     <ImageButton
+         android:id="@+id/backbtn"
+         android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:layout_x="306dp"
+         android:layout_y="147dp"
+         android:background="@null"
+         android:scaleType="centerInside"
+         android:src="@drawable/backx" />
+
+     <ImageView
+         android:id="@+id/homenemu"
+         android:layout_width="80dp"
+         android:layout_height="80dp"
+         android:layout_x="306dp"
+         android:layout_y="40dp"
+         android:src="@drawable/button_home" />
+		
+</AbsoluteLayout><!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout-large/main.xml -->

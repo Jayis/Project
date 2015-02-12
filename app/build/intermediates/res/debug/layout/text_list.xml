@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:background="#FFFFFF"
+    android:id="@+id/inner_content">
+
+	<LinearLayout
+	    android:id="@+id/searcher"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <EditText
+	        android:id="@+id/etSearchbox"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" >
+
+	        <requestFocus />
+	    </EditText>
+
+		<ImageButton
+		    android:id="@+id/sb" 
+			android:layout_width="wrap_content"
+   			android:layout_height="match_parent"
+   			android:layout_alignParentRight="true"
+   			android:scaleType="fitCenter"
+   			android:src="@drawable/search_large"
+   			android:background="@null"
+   			/>
+
+
+	</LinearLayout>
+
+    <ListView
+        android:layout_below="@id/searcher"
+        android:descendantFocusability="beforeDescendants" 
+        android:id="@+id/textlistview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:divider="#808080"
+        android:dividerHeight="4dp"
+        android:fastScrollEnabled="true"
+        android:verticalScrollbarPosition="left" 
+        
+	>
+        
+    </ListView>
+
+</RelativeLayout><!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout/text_list.xml -->

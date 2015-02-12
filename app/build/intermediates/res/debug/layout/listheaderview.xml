@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageButton
+            android:id="@+id/editbutton"
+            android:src="@drawable/composer_thought"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/playbutton"
+            android:layout_alignBottom="@+id/playbutton"
+            android:layout_alignParentRight="true"
+            android:text="Edit" />
+
+        <ImageButton
+            android:id="@+id/playbutton"
+            android:src="@drawable/composer_thought"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondTitleText"
+            android:layout_toLeftOf="@+id/editbutton"
+            android:text="Play" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/mainTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:text="HeaderMainTitle"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/secondTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/mainTitleText"
+            android:layout_centerVertical="true"
+            android:text="2title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout/listheaderview.xml -->

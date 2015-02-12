@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" 
+        android:background="#000000"
+       >
+
+        <TextView
+            android:id="@+id/text_cata_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLength="10"
+            android:layout_marginLeft="38dp"
+            android:text="Large Text"
+            android:textColor="#ffff00"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/textcataview"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	/>
+    
+</LinearLayout>

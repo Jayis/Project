@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dslv="http://schemas.android.com/apk/res/com.sagax.player"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"
+    android:id="@+id/inner_content"
+    tools:context=".EditPlaylistAcptivity" >
+    <LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="vertical"
+    	>
+    
+    	<RelativeLayout
+    		android:id="@+id/toolbar"
+    		android:layout_width="wrap_content"
+    		android:layout_height="70dp" >
+
+	  		<ImageButton
+    			android:id="@+id/edit"
+        		android:layout_width="50dp"
+        		android:layout_height="50dp"
+        		android:layout_alignParentRight="true"
+        		android:layout_marginTop="10dp"
+        		android:src="@drawable/edit" />
+	  		
+	  		<ImageButton
+    			android:id="@+id/play"
+        		android:layout_width="50dp"
+        		android:layout_height="50dp"
+            	android:layout_toLeftOf="@+id/edit"
+            	android:layout_alignTop="@+id/edit"
+        		android:src="@drawable/list_play" />
+	  		<ImageButton
+    			android:id="@+id/query"
+        		android:layout_width="50dp"
+        		android:layout_height="50dp"
+        		android:layout_toLeftOf="@+id/play"
+        		android:layout_alignTop="@+id/edit"
+        		android:visibility="invisible"
+        		android:src="@drawable/search_large" />
+	  		
+			</RelativeLayout>
+    
+    <ImageButton
+    	android:id="@+id/create"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:src="@drawable/add_song" />
+
+    <com.sagax.player.DragSortListView
+        android:id="@+id/dragsortlistview"
+        android:descendantFocusability="beforeDescendants" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        dslv:drag_enabled="true"
+    	dslv:collapsed_height="2dp"
+    	dslv:drag_scroll_start="0.33"
+    	dslv:max_drag_scroll_speed="0.5"
+    	dslv:float_alpha="0.6"
+    	dslv:slide_shuffle_speed="0.3"
+    	dslv:track_drag_sort="false"
+    	dslv:use_default_controller="true"
+    	dslv:drag_handle_id="@id/drag_handle"
+    	dslv:sort_enabled="true"
+    	dslv:remove_enabled="true"
+	    dslv:drag_start_mode="onDown"
+    	dslv:remove_mode="flingRemove" >
+    </com.sagax.player.DragSortListView>
+    </LinearLayout>
+    
+</RelativeLayout>

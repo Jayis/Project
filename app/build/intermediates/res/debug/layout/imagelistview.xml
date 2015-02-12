@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageButton
+            android:id="@+id/editbutton"
+            android:src="@drawable/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/playbutton"
+            android:layout_alignBottom="@+id/playbutton"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:visibility="invisible"
+            android:text="Edit" />
+
+        <ImageButton
+            android:id="@+id/playbutton"
+            android:src="@drawable/list_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondTitleText"
+            android:layout_toLeftOf="@+id/editbutton"
+            android:visibility="invisible"
+            android:background="@null"
+            android:text="Play" />
+
+        <TextView
+            android:id="@+id/secondTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mainTitleText"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/avatar"
+            android:layout_marginLeft="10dp"
+            android:text="2title"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/mainTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/secondTitleText"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:text="HeaderMainTitle"
+            android:ellipsize="marquee"      
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/icon" />
+
+    </RelativeLayout>
+
+	<ListView
+	    android:id="@+id/listView"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:fastScrollEnabled="true"
+	    android:footerDividersEnabled="true"
+	    android:dividerHeight="5dp" >
+
+	</ListView>
+
+	<TextView
+	    android:id="@+id/footer"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="16dp"
+	    android:gravity="center"
+	    android:text="footer"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+</LinearLayout><!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout/imagelistview.xml -->

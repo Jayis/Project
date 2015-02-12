@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dslv="http://schemas.android.com/apk/res/com.sagax.player"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mini_back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginTop="30dp" >
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linear3"
+            	android:layout_width="fill_parent"
+            	android:layout_height="40dp"
+            	android:orientation="vertical"
+            	android:background="@drawable/column_w" >
+
+	            <EditText
+	                android:id="@+id/textView1"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:layout_marginLeft="40dp"
+	                android:gravity="left|center_vertical"
+	                android:text="新增播放清單"
+	                android:textColor="#ffffff" 
+	                android:background="@null"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/columnx"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="40dp"
+                android:text="@string/delete"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/columnx"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:text="@string/edit"
+                android:paddingLeft="40dp"
+                android:textColor="#ffffff" />
+            
+            <com.sagax.player.DragSortListView
+		        android:id="@+id/dragsortlistview"
+		        android:descendantFocusability="beforeDescendants" 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        dslv:drag_enabled="true"
+		    	dslv:collapsed_height="2dp"
+		    	dslv:drag_scroll_start="0.33"
+		    	dslv:max_drag_scroll_speed="0.5"
+		    	dslv:float_alpha="0.6"
+		    	dslv:slide_shuffle_speed="0.3"
+		    	dslv:track_drag_sort="false"
+		    	dslv:use_default_controller="true"
+		    	dslv:drag_handle_id="@id/drag_handle"
+		    	dslv:sort_enabled="true"
+		    	dslv:remove_enabled="true"
+			    dslv:drag_start_mode="onDown"
+		    	dslv:remove_mode="flingRemove" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear3"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" 
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:scaleType="centerInside"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/pedit" />
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/savex" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/cancelx" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/mini_back"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="center"
+        android:src="@drawable/mini_background" />
+
+    <TextView
+        android:id="@+id/mini_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/mini_back"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/mini_next"
+        android:layout_toRightOf="@+id/mini_prev"
+        android:gravity="center"
+        android:text="Compilcated"
+        android:textColor="#ffffff" />
+
+    <ImageButton
+        android:id="@+id/mini_play"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/mini_back"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/mini_play" />
+
+    <ImageButton
+        android:id="@+id/mini_prev"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/mini_play"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/mini_play"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/mini_prev" />
+
+    <ImageButton
+        android:id="@+id/mini_once"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/mini_play"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/mini_once" />
+
+    <ImageButton
+        android:id="@+id/mini_next"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/mini_once"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/mini_once"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/mini_next" />
+
+
+
+</RelativeLayout><!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/layout/playlistedit.xml -->

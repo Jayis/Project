@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+      <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+   </item>
+
+   <item android:top="5dp" android:bottom="5dp"> 
+      <shape android:shape="rectangle">
+            <solid android:color="#000000" />
+        </shape>
+   </item>
+
+</layer-list>
+<!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/drawable/textcata_border.xml -->

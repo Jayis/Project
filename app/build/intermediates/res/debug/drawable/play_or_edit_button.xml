@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+     	<item 
+        android:state_selected="true" 
+        android:drawable="@drawable/list_play" />
+    <item
+        android:state_selected="false"  
+        android:drawable="@drawable/list_next" />
+
+</selector>
+<!-- From: file:/home/boyu/workspace/ArcStudio/Player/app/src/main/res/drawable/play_or_edit_button.xml -->

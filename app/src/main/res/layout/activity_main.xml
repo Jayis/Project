@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.sagax.player"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:paddingTop="0dip"
+    android:id="@+id/inner_content"
+    android:clickable="true"
+	android:focusable="true"
+	android:focusableInTouchMode="true"
+	android:background="@drawable/background_w">
+    
+	<ImageButton
+        android:id="@+id/homebtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/fhome" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/homebtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="W5.ttf"
+        android:text="Playlist" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="14dp"
+        android:scaleType="center"
+        android:src="@drawable/black" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_toLeftOf="@+id/imageButton2"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:gravity="center"
+        android:text="Complicated"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="40dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="3dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/prev" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="40dp"
+        android:layout_height="29dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginRight="30dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/next" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:textColor="#FFFFFF"
+        android:text="Avril Leavigne" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="My World"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/center" />
+
+    <com.sagax.player.ImageViewRecyclable
+        android:id="@+id/imageView4"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside" />
+
+	<com.sagax.player.CircularSeekBar
+		android:id="@+id/circularSeekBar1"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:layout_width="250dp"
+		android:layout_height="250dp"
+		app:start_angle="270"
+		app:end_angle="270" />
+    
+    
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/pause" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="00:00"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/m" 
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/imageButton6"
+        android:layout_marginLeft="30dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/cycle" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageButton6"
+        android:layout_marginRight="30dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/random" />
+
+    <ImageButton
+        android:id="@+id/min"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/imageButton7"
+        android:layout_below="@+id/imageButton6"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/mute" 
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/max"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@+id/imageButton8"
+        android:layout_alignTop="@+id/min"
+        android:scaleType="centerInside"
+        android:src="@drawable/max" 
+        android:background="@null"/>
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="238dp"
+        android:layout_height="10dp"
+        android:layout_alignTop="@+id/max"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:minHeight="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@null" />
+
+</RelativeLayout>
