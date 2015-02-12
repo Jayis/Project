@@ -279,10 +279,11 @@ public class EQManager {
 				Log.d("calculating",filePath);
 				//Thread.sleep(3000);
 				genre="Blues";
+                /*
 				try{
 					genre=genreClassifier.predictGenre(filePath);
 				}catch(Exception e){Log.d("calcerr",e.toString());}
-				
+				*/
 				//Log.d("done calc",filePath);
 				//if(!isCancelled()){
 					SQLiteDatabase db= DH.getWritableDatabase();
