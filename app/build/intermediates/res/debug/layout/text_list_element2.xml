@@ -4,6 +4,7 @@
     android:layout_gravity="center_vertical"
     android:orientation="horizontal">
 
+
     <RelativeLayout
         android:id="@+id/rel"
         android:layout_width="match_parent"
@@ -54,5 +55,6 @@
 
 
 	</RelativeLayout>
+
 </LinearLayout>
-<!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/layout/text_list_element2.xml -->
+<!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/layout/text_list_element2.xml -->

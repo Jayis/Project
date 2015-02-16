@@ -1,2 +1,2 @@
-D:\Users\JAYIS4176\AndroidStudioProjects\MobileClientPlayer\app\build\intermediates\classes\debug
-D:\Users\JAYIS4176\AndroidStudioProjects\MobileClientPlayer\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-0ac069aff64fff6adc1ed742ebc7f2bf03249743.jar
+C:\Users\user_2\Documents\GitHub\Project\app\build\intermediates\classes\debug
+C:\Users\user_2\Documents\GitHub\Project\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-9c3ee9a6bdf4f3006e3836f777d8f9c7a049bd5d.jar

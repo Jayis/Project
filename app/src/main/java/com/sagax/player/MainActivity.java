@@ -198,7 +198,9 @@ public class MainActivity extends Activity {
 		
 		Button playlistButton = (Button)findViewById(R.id.playlist);
 		imgButton.put(statusList[4], playlistButton);
-		buttonList.put(statusList[4], R.drawable.menu_play_on);	
+		buttonList.put(statusList[4], R.drawable.menu_play_on);
+        playlistButton.setEnabled(false);
+        playlistButton.setVisibility(View.INVISIBLE);
 		
 		setupListener();
 	}

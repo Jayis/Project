@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 public abstract class ActivityView {
@@ -48,6 +49,8 @@ public abstract class ActivityView {
 	protected int phoneWidth ;
 	protected int phoneHeight ;
 	protected GestureDetector gesture  = new GestureDetector(new MyGestureDetector());
+
+    private boolean miniSetupDone = false;
 	
 	@SuppressLint("NewApi")
 	public ActivityView(Activity c){
@@ -117,7 +120,7 @@ public abstract class ActivityView {
 		mminiSong = (TextView)activity.findViewById(R.id.mini_text);
 		mnext = (ImageButton)activity.findViewById(R.id.mini_next);
 		mcycle = (ImageButton)activity.findViewById(R.id.mini_once);
-		mini_refresh();
+		//mini_refresh();
 		int count = mediaManager.getAllSong().size();
 
 		if(count > 0 && musicManager.getCurrSong() != null){
@@ -125,6 +128,7 @@ public abstract class ActivityView {
 				
 				@Override
 				public void onClick(View arg0) {
+                    Log.d("miniClick", "to Big Player");
 					// TODO Auto-generated method stub
 					finish();
 					ActivityView av = activity.act.get(activity.statusList[0]);
@@ -138,6 +142,8 @@ public abstract class ActivityView {
 			mplay.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+                    Log.d("miniClick", "Play");
+
 					boolean status = musicManager.togglePlay();
 					if(!status){
 						mplay.setImageResource(R.drawable.mini_play);
@@ -151,17 +157,35 @@ public abstract class ActivityView {
 			mnext.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+                    Log.d("miniClick", "PlayNext");
+                    /*
 					musicManager.playNext();
 					mplay.setImageResource(R.drawable.mini_pause);
 					mini_refresh();
+					*/
+                    if(musicManager.playNext()){
+                        mplay.setImageResource(R.drawable.mini_pause);
+                        mini_refresh();
+                    }else{
+                        Toast.makeText(activity, "Last Song of Playlist!", Toast.LENGTH_SHORT).show();
+                    }
 				}
 			});
 			mprev.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+                    Log.d("miniClick", "PlayPrev");
+                    /*
 					musicManager.playPrev();
 					mplay.setImageResource(R.drawable.mini_pause);
 					mini_refresh();
+					*/
+                    if(musicManager.playPrev()){
+                        mplay.setImageResource(R.drawable.mini_pause);
+                        mini_refresh();
+                    }else{
+                        Toast.makeText(activity, "First Song of Playlist!", Toast.LENGTH_SHORT).show();
+                    }
 				}
 			});
 			mcycle.setOnClickListener(new OnClickListener() {
@@ -179,12 +203,20 @@ public abstract class ActivityView {
 					}
 				}
 			});
+
+            miniSetupDone = true;
+
 			mini_refresh();
 		}
 	}
 	
 	protected  void mini_refresh() {
+
 		if(musicManager.getCurrSong() != null){
+            if (!miniSetupDone) {
+                setupMiniPlayer();
+            }
+
 			if(mminiSong != null)
 				mminiSong.setText(musicManager.getCurrSong().filename);
 			

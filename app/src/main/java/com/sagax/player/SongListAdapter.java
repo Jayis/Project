@@ -96,6 +96,7 @@ public class SongListAdapter extends BaseAdapter{
             DL.setOnClickListener(new ItemButton_Click(mContext, position));
         }
 
+
 		return v;
 	}
 	@Override
@@ -164,5 +165,6 @@ public class SongListAdapter extends BaseAdapter{
 
         }
     }
+
 
 }

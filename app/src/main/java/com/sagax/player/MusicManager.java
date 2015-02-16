@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.arc.GenreClassifier;
 import com.sagax.player.R;
 
 import android.R.bool;
@@ -24,7 +23,6 @@ public class MusicManager {
 	private int mode = 0;
 	private MediaPlayer mediaPlayer;
 	private MediaManager mediaManager;
-	private GenreClassifier genreClassifier;
 	private double[] eqTags;
 	private Playlist playlist;
 	public EQManager eqManager;
@@ -277,7 +275,25 @@ public class MusicManager {
 		mediaPlayer.release();
 		mediaPlayer = null;
 	}
-	
+
+    public String getCurrSongLengthStr() {
+        int duration = mediaPlayer.getDuration();
+
+        int d = duration / 1000;
+        int h = d / 3600;
+        int m = (d % 3600) / 60;
+        int s = d % 60;
+        if (h == 0)
+            return String.format("%02d:%02d", m, s);
+        else {
+            return String.format("%d:%02d:%02d", h, m, s);
+        }
+    }
+
+    public int getCurrSongLength() {
+        return mediaPlayer.getDuration();
+    }
+
 	public boolean toggleEQ(){
 		return eqManager.toggleEQ();
 	}

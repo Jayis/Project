@@ -1,6 +1,8 @@
 -- Merging decision tree log ---
 manifest
 ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
 	package
 		ADDED from AndroidManifest.xml:3:5
 		INJECTED from AndroidManifest.xml:0:0
@@ -11,8 +13,6 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:4:5
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-	xmlns:android
-		ADDED from AndroidManifest.xml:2:11
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
 	android:targetSdkVersion
@@ -49,18 +49,18 @@ ADDED from AndroidManifest.xml:16:5
 		ADDED from AndroidManifest.xml:16:22
 supports-screens
 ADDED from AndroidManifest.xml:18:2
+	android:resizeable
+		ADDED from AndroidManifest.xml:18:162
 	android:largeScreens
 		ADDED from AndroidManifest.xml:18:20
-	android:smallScreens
-		ADDED from AndroidManifest.xml:18:104
+	android:anyDensity
+		ADDED from AndroidManifest.xml:18:48
 	android:normalScreens
 		ADDED from AndroidManifest.xml:18:133
 	android:xlargeScreens
 		ADDED from AndroidManifest.xml:18:74
-	android:resizeable
-		ADDED from AndroidManifest.xml:18:162
-	android:anyDensity
-		ADDED from AndroidManifest.xml:18:48
+	android:smallScreens
+		ADDED from AndroidManifest.xml:18:104
 uses-feature#android.hardware.wifi
 ADDED from AndroidManifest.xml:21:5
 	android:required
@@ -137,14 +137,14 @@ application
 ADDED from AndroidManifest.xml:35:5
 	android:label
 		ADDED from AndroidManifest.xml:37:9
-	android:hardwareAccelerated
-		ADDED from AndroidManifest.xml:39:41
 	android:allowBackup
 		ADDED from AndroidManifest.xml:38:9
 	android:icon
 		ADDED from AndroidManifest.xml:36:9
 	android:theme
 		ADDED from AndroidManifest.xml:39:9
+	android:hardwareAccelerated
+		ADDED from AndroidManifest.xml:39:41
 activity#com.sagax.player.LoginMainActivity
 ADDED from AndroidManifest.xml:40:9
 	android:label

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <attr format="dimension|reference" name="childSize"/>
     <attr format="float|reference" name="fromDegrees"/>
@@ -13,19 +13,19 @@
     <declare-styleable name="HorizontalListView"><attr format="dimension" name="dividerWidth"/><attr name="android:divider"/><attr name="android:requiresFadingEdge"/><attr name="android:fadingEdgeLength"/></declare-styleable>
     <declare-styleable name="ImageViewRecyclable"/>
     <declare-styleable name="RayLayout"><attr format="dimension" name="leftHolderWidth"/></declare-styleable>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/dimens2.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/dimens2.xml -->
     <eat-comment/>
     <dimen name="item_height">67dp</dimen>
     <dimen name="section_div_height">20dp</dimen>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/ids.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="click_remove" type="id"/>
     <item name="drag_handle" type="id"/>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="DL_thisSong">Download</string>
     <string name="action_settings">Settings</string>
@@ -55,7 +55,7 @@
     <string name="title_activity_musictype_list">MusictypeListActivity</string>
     <string name="title_activity_player_main">PlayerMainActivity</string>
     <string name="username">username</string>
-    <!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->

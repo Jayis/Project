@@ -94,16 +94,20 @@ public class EQManager {
 		curSong = song;
 		if(equalizer != null)
 			equalizer.release();
+        if(booster != null)
+            booster.release();
 		equalizer = new Equalizer(0,sessionId);
-		booster=new BassBoost(0,sessionId);
+		booster = new BassBoost(0,sessionId);
 		eqTog=false;
         // see last eqOn
+        Log.d("this song eqon", String.valueOf(curSong.eqon));
         if (curSong.eqon == 1) {
             eqOn = true;
         }
         else {
             eqOn = false;
         }
+        Log.d("eqon", String.valueOf(eqOn));
 
 		setEQLevel();
 		return eqOn;
@@ -142,6 +146,7 @@ public class EQManager {
 	}
 	
 	private void setEQLevel(){
+        Log.d("eqTog",String.valueOf(eqTog));
 		if(!eqTog){
 			String genre = getGenre(curSong);
 
@@ -156,6 +161,7 @@ public class EQManager {
 					equalizer.setBandLevel((short)i,(short)(eqset[i]-1500));
 				}
 				booster.setStrength((short)eqset[eqset.length-1]);
+
 				eqTog=true;
 				equalizer.setEnabled(eqOn);
 				booster.setEnabled(eqOn);

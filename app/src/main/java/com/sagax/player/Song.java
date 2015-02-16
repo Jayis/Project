@@ -37,7 +37,6 @@ public class Song implements Serializable {
 	public Song(String id,String artist,String album,String title,String data,String album_id,int duration, String genre, String url, String filename, Integer eqon) {
 		this.id = id;
 		this.album = album;
-		this.title = title;
 		this.data = data;
 		this.artist = artist;
 		this.album_id =  (long) Integer.parseInt(album_id);
@@ -67,6 +66,13 @@ public class Song implements Serializable {
         }
         else {
             this.status = 2;
+        }
+
+        if (title.compareTo("unknown")==0){
+            this.title = filename;
+        }
+        else {
+            this.title = title;
         }
 	}
 	@SuppressLint("DefaultLocale")

@@ -264,10 +264,12 @@ public class PlayerView extends ActivityView{
 		album.setText(currentSong.album);
 		artist.setText(currentSong.artist);
 		setCover();
-		circularSeekBar.setMax(currentSong.duration);
+		//circularSeekBar.setMax(currentSong.duration);
+        circularSeekBar.setMax(musicManager.getCurrSongLength());
 		circularSeekBar.setProgress(0);
-		duration.setText(currentSong.gtDuration());
-		if(!musicManager.isPlaying()){
+		//duration.setText(currentSong.gtDuration());
+        duration.setText(musicManager.getCurrSongLengthStr());
+        if(!musicManager.isPlaying()){
 			play.setImageResource(R.drawable.play);
 		}
 		else {

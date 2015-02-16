@@ -153,7 +153,7 @@ public class SongListActivityView extends ActivityView {
 		allSong = mediaManager.getAllSong();
 		
 		adapter = new AllListAdapter(activity, android.R.layout.simple_list_item_1, allSong,1);
-		adapter.setActivity((MainActivity)activity);
+		//adapter.setActivity((MainActivity)activity);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(null);
 		

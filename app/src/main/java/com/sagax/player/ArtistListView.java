@@ -204,14 +204,18 @@ public class ArtistListView extends ActivityView {
                     Log.d("song status", "in local");
                     musicManager.setCurrentPlaylist(playlist);
                     musicManager.playIndex(position);
-                    MainActivity ma = (MainActivity) activity;
-                    ActivityView av = ma.act.get(ma.statusList[1]);
+
+                    ActivityView av = activity.act.get(activity.statusList[1]);
+                    av.mini_refresh();
+                    /*
+                    ActivityView av = activity.act.get(activity.statusList[1]);
                     av.finish();
-                    av = ma.act.get(ma.statusList[0]);
-                    ma.init();
+                    av = activity.act.get(activity.statusList[0]);
+                    activity.init();
                     av.display();
                     av.setSwipe();
-                    ma.setClose();
+                    activity.setClose();
+                    */
                 }
 			}
 			

@@ -115,7 +115,6 @@ public class CheckSongListActivity extends Activity {
                 // -- attribute on json.list
                 values.put(DBHelper.COLUMN_ALBUM, dbHelper.emptyStringChecker(curSong.getString("album")));
                 values.put(DBHelper.COLUMN_GENRE, curSong.getString("genre"));
-                values.put(DBHelper.COLUMN_SERVERID, curSong.getInt("server_id"));
                 values.put(DBHelper.COLUMN_TITLE, dbHelper.emptyStringChecker(curSong.getString("title")));
                 values.put(DBHelper.COLUMN_URL, curSong.getString("url"));
                 values.put(DBHelper.COLUMN_ARTIST, dbHelper.emptyStringChecker(curSong.getString("artist")));
@@ -125,6 +124,7 @@ public class CheckSongListActivity extends Activity {
                 values.put(DBHelper.COLUMN_ONLIST, 1);            // to see if this song is still on the list this time
 
                 if (cursor_curSong.getCount() <= 0) {
+                    values.put(DBHelper.COLUMN_SERVERID, curSong.getInt("server_id"));
                     values.put(DBHelper.COLUMN_LOCALURI, "null");    // "null" means haven't download yet
                     values.put(DBHelper.COLUMN_EQON, 0);
                     // not found on local SongList

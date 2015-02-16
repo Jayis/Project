@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
      >
 
@@ -22,12 +22,21 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
-    
+
     <LinearLayout
         android:id="@+id/textcataview"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 	/>
-    
-</LinearLayout><!-- From: file:/D:/Users/JAYIS4176/AndroidStudioProjects/MobileClientPlayer/app/src/main/res/layout/text_list_catagory.xml -->
+<!--
+    <ListView
+        android:id="@+id/textcataviewlist"
+        android:descendantFocusability="beforeDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fastScrollEnabled="false"
+        >
+    </ListView>
+    -->
+</LinearLayout><!-- From: file:/C:/Users/user_2/Documents/GitHub/Project/app/src/main/res/layout/text_list_catagory.xml -->

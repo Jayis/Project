@@ -252,6 +252,7 @@ public class AlbumListActivityView extends ActivityView {
 		listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,long arg3) {
+
 				Playlist playlist = new Playlist(mediaManager.getSongsByAlbumID(allAlbum[currentindex]));
                 if (playlist.getSongIndex(position).status != 2) {
                     Toast.makeText(activity.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
@@ -261,6 +262,10 @@ public class AlbumListActivityView extends ActivityView {
                     Log.d("song status", "in local");
                     musicManager.setCurrentPlaylist(playlist);
                     musicManager.playIndex(position);
+
+                    ActivityView av = activity.act.get(activity.statusList[2]);
+                    av.mini_refresh();
+                    /*
                     ActivityView av = activity.act.get(activity.statusList[2]);
                     av.finish();
                     av = activity.act.get(activity.statusList[0]);
@@ -268,7 +273,9 @@ public class AlbumListActivityView extends ActivityView {
                     av.display();
                     av.setSwipe();
                     activity.setClose();
+                    */
                 }
+
 			}
 			
 		});

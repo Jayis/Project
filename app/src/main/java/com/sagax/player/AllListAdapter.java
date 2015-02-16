@@ -51,6 +51,9 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     	
     	public AllListAdapter(Context context,int viewid,List<Song> songs,int type){
     		super(context, viewid);
+
+            setActivity((MainActivity)context);
+
     		catamap = new HashMap<String,Cata>();
     		selectList = new ArrayList<Song>();
 
@@ -66,7 +69,7 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     				str=Character.toString(cat);
     			Cata cata = catamap.get(str);
     			if(cata == null){
-    				List<Song> newl = new ArrayList<Song>();
+    				ArrayList<Song> newl = new ArrayList<Song>();
     				newl.add(song);
     				catamap.put(str, new Cata(str,newl,id));
     				id++;
@@ -89,7 +92,7 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     		fcatas = new ArrayList<Cata>(catas);
     		adapters=new ArrayList<CataAdapter>();
     		for(int i=0;i<catas.size();i++)
-    			adapters.add(new CataAdapter(context,catas.get(i)));
+    			adapters.add(new CataAdapter(context,catas.get(i),musicManager.getCurrSong()));
     		fadapters=new ArrayList<CataAdapter>(adapters);
     		li = LayoutInflater.from(context);
     	}
@@ -164,7 +167,223 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
     		TextView title;
     		LinearLayout list;
     	}
-    	
+
+
+    private class CataAdapter extends SongListAdapter{
+        Context context;
+        Cata cata;
+        ArrayList<Song> songs;
+        public CataAdapter(Context context,Cata cata,Song current){
+            super(context, cata.songs, current);
+            this.context = context;
+            this.cata=cata;
+            songs = new ArrayList<Song>(cata.songs);
+        }
+        public Song getItem(int index){
+            return songs.get(index);
+        }
+        public int getCount(){
+            return songs.size();
+        }
+
+        public View getView(final int pos, View convertView, ViewGroup parent){
+            ViewHolder holder = null;
+            final Song currSong=getItem(pos);
+
+            holder=new ViewHolder();
+
+            if (type == 0) {
+                if(convertView == null||convertView.getTag()==null){
+
+                    convertView = li.inflate(R.layout.text_list_element,null);
+                    holder.title=(TextView) convertView.findViewById(R.id.songtitle);
+                    holder.duration=(TextView) convertView.findViewById(R.id.songlength);
+                    holder.selected = (CheckBox) convertView.findViewById(R.id.select);
+
+                    holder.selected.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            // TODO Auto-generated method stub
+                            CheckBox checkBox = (CheckBox)arg0;
+                            if(checkBox.isChecked()){
+                                selectList.add(currSong);
+                            }
+                            else{
+                                selectList.remove(currSong);
+                            }
+
+                        }
+                    });
+                }
+
+                holder.title.setTextColor(Color.rgb(255, 235, 0));
+                holder.duration.setTextColor(Color.rgb(255, 235, 0));
+
+                holder.selected.setChecked(selectList.contains(currSong));
+                holder.title.setTextColor(Color.rgb(255, 255, 255));
+                holder.duration.setTextColor(Color.rgb(255, 255, 255));
+
+                holder.title.setText(currSong.title);
+                holder.duration.setText(currSong.gtDuration());
+            }
+            else {
+                convertView = super.getView(pos, convertView, parent);
+
+                holder.title=(TextView) convertView.findViewById(R.id.songtitle);
+                holder.title.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO Auto-generated method stub
+                        if (currSong.status != 2) {
+                            Toast.makeText(activity.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                            Log.d("song status", "not in local");
+                        }
+                        else {
+                            Log.d("song status", "in local");
+                            ArrayList<Song> tmpArrayList = mediaManager.getAllSong();
+                            Playlist playlist = new Playlist(tmpArrayList);
+                            musicManager.setCurrentPlaylist(playlist);
+                            musicManager.playIndex(tmpArrayList.indexOf(currSong));
+
+                            ActivityView av = activity.act.get(activity.statusList[3]);
+                            av.mini_refresh();
+                            /*
+                            ActivityView av = activity.act.get(activity.statusList[3]);
+                            av.finish();
+                            av = activity.act.get(activity.statusList[0]);
+                            activity.init();
+                            av.display();
+                            av.setSwipe();
+                            activity.setClose();
+                            */
+                        }
+                    }
+                });
+            }
+
+            return convertView;
+/*
+            if(convertView == null||convertView.getTag()==null){
+                holder=new ViewHolder();
+                if(type == 0){
+                    convertView = li.inflate(R.layout.text_list_element,null);
+                    holder.title=(TextView) convertView.findViewById(R.id.songtitle);
+                    holder.duration=(TextView) convertView.findViewById(R.id.songlength);
+                    holder.selected = (CheckBox) convertView.findViewById(R.id.select);
+
+                    holder.selected.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            // TODO Auto-generated method stub
+                            CheckBox checkBox = (CheckBox)arg0;
+                            if(checkBox.isChecked()){
+                                selectList.add(currSong);
+                            }
+                            else{
+                                selectList.remove(currSong);
+                            }
+
+                        }
+                    });
+                }
+                else{
+                    convertView = li.inflate(R.layout.songlist,null);
+                    holder.title=(TextView) convertView.findViewById(R.id.songtitle);
+                    //holder.duration=(TextView) convertView.findViewById(R.id.songlength);
+                    holder.currentImageView = (ImageView)convertView.findViewById(R.id.current);
+                    holder.title.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            // TODO Auto-generated method stub
+                            if (currSong.status != 2) {
+                                Toast.makeText(activity.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                                Log.d("song status", "not in local");
+                            }
+                            else {
+                                Log.d("song status", "in local");
+                                ArrayList<Song> tmpArrayList = mediaManager.getAllSong();
+                                Playlist playlist = new Playlist(tmpArrayList);
+                                musicManager.setCurrentPlaylist(playlist);
+                                musicManager.playIndex(tmpArrayList.indexOf(currSong));
+                                ActivityView av = activity.act.get(activity.statusList[3]);
+                                av.finish();
+                                av = activity.act.get(activity.statusList[0]);
+                                activity.init();
+                                av.display();
+                                av.setSwipe();
+                                activity.setClose();
+                            }
+                        }
+                    });
+                }
+
+                convertView.setTag(holder);
+            }else{
+
+                holder = (ViewHolder)convertView.getTag();
+            }
+
+
+
+            holder.title.setTextColor(Color.rgb(255, 235, 0));
+            holder.duration.setTextColor(Color.rgb(255, 235, 0));
+            if(type == 0){
+                holder.selected.setChecked(selectList.contains(currSong));
+                holder.title.setTextColor(Color.rgb(255, 255, 255));
+                holder.duration.setTextColor(Color.rgb(255, 255, 255));
+            }
+            else{
+                if (musicManager.getCurrSong() != null) {
+                    if(!musicManager.getCurrSong().id.equals(currSong.id)){
+                        holder.currentImageView.setVisibility(ViewGroup.INVISIBLE);
+                        holder.title.setTextColor(Color.rgb(255, 255, 255));
+                        holder.duration.setTextColor(Color.rgb(255, 255, 255));
+                    }
+                }
+            }
+
+
+            holder.title.setText(currSong.title);
+            holder.duration.setText(currSong.gtDuration());
+            return convertView;
+            */
+        }
+
+        private class ViewHolder{
+            TextView title;
+            TextView duration;
+            CheckBox selected;
+            ImageView currentImageView;
+            int position;
+        }
+        public void applyFilter(CharSequence arg){
+            String cs = arg.toString().toLowerCase();
+            ArrayList<Song> list;
+            if (cs == null || cs.length() == 0)
+            {
+                list = new ArrayList<Song>(cata.songs);
+            }else{
+                list = new ArrayList<Song>();
+                for(int i=0;i<cata.songs.size();i++){
+                    Song song=cata.songs.get(i);
+                    String songName = song.title.toLowerCase();
+                    String artist = song.artist.toLowerCase();
+                    if(songName.contains(cs) || artist.contains(cs)){
+                        list.add(song);
+                    }
+
+                }
+            }
+            songs = list;
+        }
+
+    }
+
+    /*
     	private class CataAdapter extends ArrayAdapter<Song>{
     		Context context;
     		Cata cata;
@@ -298,5 +517,6 @@ public class AllListAdapter extends ArrayAdapter<Cata>{
 	            songs = list;
     		}
     		
-    	}	
+    	}
+    	*/
     }
