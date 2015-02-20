@@ -110,5 +110,13 @@
          android:layout_x="306dp"
          android:layout_y="40dp"
          android:src="@drawable/button_home" />
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="306dp"
+        android:layout_y="300dp"
+        android:text="@string/refresh"/>
 		
 </AbsoluteLayout>

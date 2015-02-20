@@ -294,6 +294,14 @@ public class MusicManager {
         return mediaPlayer.getDuration();
     }
 
+    public void refresh() {
+        destory(); // mediaplayer
+
+        mediaManager = new MediaManager(context);
+        setUpMediaPlayer();
+        playlist = mediaManager.getPlaylist();
+    }
+
 	public boolean toggleEQ(){
 		return eqManager.toggleEQ();
 	}

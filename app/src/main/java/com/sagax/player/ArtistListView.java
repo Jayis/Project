@@ -93,7 +93,8 @@ public class ArtistListView extends ActivityView {
 		mediaManager = MainActivity.getMediaManagerInstance();	
 		musicManager = MainActivity.getMusicManagerInstance();
 		
-		
+		Log.d("artistListView.display(). type", String.valueOf(type));
+
 		if(type == 0){
 			activity.onPreExecute();
 			setupUI();
@@ -191,7 +192,7 @@ public class ArtistListView extends ActivityView {
 			}
 		});
 		
-		
+		/*
 		listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,long arg3) {
@@ -207,20 +208,12 @@ public class ArtistListView extends ActivityView {
 
                     ActivityView av = activity.act.get(activity.statusList[1]);
                     av.mini_refresh();
-                    /*
-                    ActivityView av = activity.act.get(activity.statusList[1]);
-                    av.finish();
-                    av = activity.act.get(activity.statusList[0]);
-                    activity.init();
-                    av.display();
-                    av.setSwipe();
-                    activity.setClose();
-                    */
+
                 }
 			}
 			
 		});
-		
+		*/
 		listview.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -243,8 +236,8 @@ public class ArtistListView extends ActivityView {
 	        	setupSingerlist();
 	        	
 	    		listAdapter = new ArrayList<SongListAdapter>();
-	    		for(String string : allSinger){
-	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getSongsByArtistID(string),musicManager.getCurrSong());
+	    		for(int i = 0; i < allSinger.length; i++){
+	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getSongsByArtistID(allSinger[i]),musicManager.getCurrSong(), "artist", allSinger[i]);
 	    			listAdapter.add(s);
 	    		}
 	    		
@@ -464,6 +457,5 @@ public class ArtistListView extends ActivityView {
 	public void resume() {	
 		
 	}
-		
-	
+
 }

@@ -26,7 +26,8 @@ public class Playlist implements Serializable {
 	private int current = 0;
 	private int randomCurrent = 0;
 	private boolean randomOn = false;
-	private String listName;
+	private String listType;
+    private String listName;
 	private boolean repeatFlag = false;
     public boolean good = false;
 	//private String avatarPath;
@@ -179,6 +180,14 @@ public class Playlist implements Serializable {
 	public String getListName(){
 		return this.listName;
 	}
+
+    public void setListType(String listType){
+        this.listType = listType;
+    }
+
+    public String getlistType(){
+        return this.listType;
+    }
 
     public boolean anySongInLocal() {
         boolean any = false;

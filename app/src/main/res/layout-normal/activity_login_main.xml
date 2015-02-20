@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_w"
     >
 
     <TextView
         android:id="@+id/are_you"
         android:textSize="36dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/White"/>
 
     <Button
         android:id="@+id/resume_login"
@@ -17,27 +19,32 @@
         android:layout_height="wrap_content"
         android:text="@string/resume_login"
         android:onClick="last_login"
+        android:visibility="invisible"
         />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/username" />
+        android:hint="@string/username"
+        android:textColor="@color/White"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:password="true"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:textColor="@color/White"/>
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:onClick="login" />
+        android:onClick="login"
+        android:textColor="@color/Gold"
+        android:shadowColor="@color/Wheat"/>
 
     <TextView
         android:id="@+id/not_success"

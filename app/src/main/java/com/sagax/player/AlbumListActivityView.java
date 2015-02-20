@@ -248,7 +248,7 @@ public class AlbumListActivityView extends ActivityView {
 			public void onNothingSelected(AdapterView<?> parent){}
 		
 		});*/
-		
+		/*
 		listview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,long arg3) {
@@ -265,21 +265,13 @@ public class AlbumListActivityView extends ActivityView {
 
                     ActivityView av = activity.act.get(activity.statusList[2]);
                     av.mini_refresh();
-                    /*
-                    ActivityView av = activity.act.get(activity.statusList[2]);
-                    av.finish();
-                    av = activity.act.get(activity.statusList[0]);
-                    activity.init();
-                    av.display();
-                    av.setSwipe();
-                    activity.setClose();
-                    */
+
                 }
 
 			}
 			
 		});
-
+*/
 		change.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -297,8 +289,8 @@ public class AlbumListActivityView extends ActivityView {
 	        @Override
 	        public void run() {
 	    		listAdapter = new ArrayList<SongListAdapter>();
-	    		for(String string : allAlbum){
-	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getSongsByAlbumID(string),musicManager.getCurrSong());
+	    		for(int i = 0; i < allAlbum.length; i++){
+	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getSongsByAlbumID(allAlbum[i]),musicManager.getCurrSong(), "album", allAlbum[i]);
 	    			listAdapter.add(s);
 	    		}
 	    		setupAlbumlist();

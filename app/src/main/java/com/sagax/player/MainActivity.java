@@ -43,6 +43,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class MainActivity extends Activity {
     private static List<Map<String, Object>> DLQsongs;
     public static DownloadManager dm;
+    public static Boolean needRefreshSongList = false;
+    private Button refreshButton;
 
 	private static Context context;
 	private static MediaManager mediaManager = null;
@@ -94,6 +96,7 @@ public class MainActivity extends Activity {
         this.registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        LoginMainActivity.mainPlayActivity = this;
         //
 
 		try{
@@ -141,11 +144,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+
 				ViewGroup view = (ViewGroup) findViewById(R.id.inner_content);
 				ObjectAnimator oa=ObjectAnimator.ofFloat(view, "translationX", phoneWidth, 0);
 				oa.setDuration(200);
 				oa.start();
 				openStatus = false;
+
 			}
 		});
 		AbsoluteLayout view = (AbsoluteLayout) findViewById(R.id.backlayout);
@@ -175,7 +180,10 @@ public class MainActivity extends Activity {
 				act.put(statusList[4],new PlaylistActivityView(this));
 			//}
 		}
-			
+
+        // Harry
+        refreshButton = (Button) findViewById(R.id.refresh);
+
 		backButton = (ImageButton) findViewById(R.id.backbtn);
 		imgButton.clear();
 		buttonList.clear();
@@ -206,6 +214,33 @@ public class MainActivity extends Activity {
 	}
 	
 	public void setupListener(){
+        refreshButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, LoginMainActivity.class);
+                startActivity(intent);
+                finish();
+
+                synchronized (MainActivity.class) {
+                    mediaManager = new MediaManager(context);
+
+                    if (musicManager != null) {
+                        musicManager.refresh();
+                    }
+                    else {
+                        musicManager = new MusicManager(context);
+                    }
+                }
+
+                for (String s : statusList) {
+                    if (s == statusList[0])
+                        continue;
+
+                    act.get(s).databaseRefresh();
+                }
+            }
+        });
+
 		for(String s : statusList){
 			
 			final String nextActivityView = s;
@@ -218,6 +253,9 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
+                    Log.d("current", String.valueOf(current));
+                    Log.d("nextAV", String.valueOf(nextActivityView));
+
 					act.get(current).finish();
 					// assign current to next view 
 					current = nextActivityView;
@@ -368,6 +406,18 @@ public class MainActivity extends Activity {
             }
         }
     };
+
+    /*
+    // it doesn't work, damn
+    @Override
+    public void onBackPressed () {
+        Log.d("Bcurrent", current);
+        if (current.compareTo(statusList[0]) != 0) {
+            init();
+            current = statusList[0];
+        }
+    }
+*/
 
     public static DownloadManager shareDM () {
         return dm;

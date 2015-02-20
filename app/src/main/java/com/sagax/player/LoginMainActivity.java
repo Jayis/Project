@@ -39,6 +39,7 @@ public class LoginMainActivity extends Activity {
     private static SQLiteDatabase database;
     private static DBHelper dbHelper;
     private static SharedPreferences sharedPref;
+    public static MainActivity mainPlayActivity = null;
 
     // urls
     private static String url_site = "http://106.187.36.145:3000";
@@ -65,9 +66,15 @@ public class LoginMainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // static variable
-        dbHelper = new DBHelper(this);
-        sharedPref = this.getSharedPreferences(getString(R.string.preference_lastUser), Context.MODE_PRIVATE);
-        database = dbHelper.getWritableDatabase();
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(this);
+        }
+        if (sharedPref == null) {
+            sharedPref = this.getSharedPreferences(getString(R.string.preference_lastUser), Context.MODE_PRIVATE);
+        }
+        if (database == null) {
+            database = dbHelper.getWritableDatabase();
+        }
         isThereNetwork = tools.isConnected();
 
         // check network
@@ -83,7 +90,7 @@ public class LoginMainActivity extends Activity {
 
     }
 
-    private class BG_IfLogin extends AsyncTask<String, Integer, Integer>
+    public class BG_IfLogin extends AsyncTask<String, Integer, Integer>
     {
         // network response
         JSONObject jsonObject;
@@ -140,19 +147,19 @@ public class LoginMainActivity extends Activity {
     }
 
     public void setLoginPage(){
-        String Notify;
-
-        setContentView(R.layout.activity_login_main);
-
-        textView_notSuccess = (TextView) findViewById(R.id.not_success);
-        TextView textView_areYou = (TextView) findViewById(R.id.are_you);
-        Button button_resumeLogin = (Button) findViewById(R.id.resume_login);
 
         if ( seekLastUser() ) {
-            Notify = "Are you " + lastUser + " ?\nIf YES, plz resume Login\nIf NO, plz Re-Login";
-            textView_areYou.setText(Notify);
+            last_login(null);
         }
         else {
+            String Notify;
+
+            setContentView(R.layout.activity_login_main);
+
+            textView_notSuccess = (TextView) findViewById(R.id.not_success);
+            TextView textView_areYou = (TextView) findViewById(R.id.are_you);
+            Button button_resumeLogin = (Button) findViewById(R.id.resume_login);
+
             Notify = "Please Login~\n";
             textView_areYou.setText(Notify);
             button_resumeLogin.setEnabled(false);

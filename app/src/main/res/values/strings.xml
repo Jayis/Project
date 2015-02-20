@@ -33,5 +33,6 @@
     <string name="DL_thisSong">Download</string>
 
     <string name="preference_lastUser">preference_lastUser</string>
-	
+	<string name="refresh">Refresh Database</string>
+
 </resources>

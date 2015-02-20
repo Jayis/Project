@@ -347,5 +347,10 @@ public abstract class ActivityView {
 	public abstract void finish();
 	public abstract void resume();
 	public abstract void refresh();
-	
+
+    public void databaseRefresh() {
+        mediaManager = MainActivity.getMediaManagerInstance();
+        musicManager = MainActivity.getMusicManagerInstance();
+        miniSetupDone = false;
+    }
 }

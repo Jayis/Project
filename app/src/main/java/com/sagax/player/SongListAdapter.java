@@ -27,6 +27,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SongListAdapter extends BaseAdapter{
 	private ArrayList<Song> songs;
@@ -39,8 +40,10 @@ public class SongListAdapter extends BaseAdapter{
     private SharedPreferences sharedPref;
     private String songTable;
     private List<Map<String,Object>> QedSongList;
+    private String playListType;
+    private String typeID;
 	
-	public SongListAdapter(Context context,ArrayList<Song> playlist, Song current) {
+	public SongListAdapter(Context context,ArrayList<Song> playlist, Song current, String playListType, String typeID) {
 		mContext = context;
 		songs = playlist;
 		if(current != null)
@@ -54,6 +57,9 @@ public class SongListAdapter extends BaseAdapter{
         dm = MainActivity.shareDM();
         QedSongList = MainActivity.shareDLQ();
         songTable = sharedPref.getString("songTable", null);
+
+        this.playListType = playListType;
+        this.typeID = typeID;
 	}
 	
 
@@ -73,8 +79,9 @@ public class SongListAdapter extends BaseAdapter{
 		tmp.setTextColor(Color.rgb(255, 235, 0));
 		//songLength.setText(songs.get(position).gtDuration());
 	    //songLength.setTextColor(Color.rgb(255, 235, 0));
+        ImageView image = (ImageView)v.findViewById(R.id.current);
 		if(!currentIdString.equals(songs.get(position).id)){
-			((ImageView)v.findViewById(R.id.current)).setVisibility(ViewGroup.INVISIBLE);
+			image.setVisibility(ViewGroup.INVISIBLE);
 			tmp.setTextColor(Color.rgb(255, 255, 255));
 			//songLength.setTextColor(Color.rgb(255, 255, 255));
 		}
@@ -96,6 +103,8 @@ public class SongListAdapter extends BaseAdapter{
             DL.setOnClickListener(new ItemButton_Click(mContext, position));
         }
 
+
+        tmp.setOnClickListener(new ItemTitle_Click(mContext, songs.get(position), tmp, image, playListType, typeID));
 
 		return v;
 	}
@@ -166,5 +175,57 @@ public class SongListAdapter extends BaseAdapter{
         }
     }
 
+    class ItemTitle_Click implements View.OnClickListener {
+        private Context mContext;
+        private MainActivity activity;
+        private Song currSong;
+        private TextView title;
+        private ImageView image;
+        private String listType;
+        private String typeID;
 
+        ItemTitle_Click(Context context, Song song, TextView text, ImageView image, String listType, String typeID) {
+            this.mContext = context;
+            this.activity = (MainActivity)mContext;
+            this.currSong = song;
+            this.title = text;
+            this.image = image;
+            this.listType = listType;
+            this.typeID = typeID;
+        }
+
+        public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (currSong.status != 2) {
+                    Toast.makeText(mContext.getApplicationContext(), "not in local\nCan't play", Toast.LENGTH_SHORT).show();
+                    Log.d("song status", "not in local");
+                }
+                else {
+                    Log.d("song status", "in local");
+                    ArrayList<Song> tmpArrayList;
+                    ActivityView av;
+                    if (listType.compareTo("artist") == 0) {
+                        tmpArrayList = activity.getMediaManagerInstance().getSongsByArtistID(typeID);
+                        av = activity.act.get(activity.statusList[1]);
+                    }
+                    else if (listType.compareTo("album") == 0) {
+                        tmpArrayList = activity.getMediaManagerInstance().getSongsByAlbumID(typeID);
+                        av = activity.act.get(activity.statusList[2]);
+                    }
+                    else {
+                        tmpArrayList = activity.getMediaManagerInstance().getAllSong();
+                        av = activity.act.get(activity.statusList[3]);
+                    }
+
+                    Playlist playlist = new Playlist(tmpArrayList);
+                    activity.getMusicManagerInstance().setCurrentPlaylist(playlist);
+                    activity.getMusicManagerInstance().playIndex(tmpArrayList.indexOf(currSong));
+
+                    image.setVisibility(View.VISIBLE);
+                    title.setTextColor(Color.rgb(255, 235, 0));
+
+                    av.mini_refresh();
+                }
+        }
+    }
 }

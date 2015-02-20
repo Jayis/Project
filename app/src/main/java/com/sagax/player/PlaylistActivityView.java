@@ -236,7 +236,7 @@ public class PlaylistActivityView extends ActivityView {
 	        public void run() {
 	    		listAdapter = new ArrayList<SongListAdapter>();
 	    		for(String string : allPlaylist){
-	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getPlaylistByID(string),musicManager.getCurrSong());
+	    			SongListAdapter s = new SongListAdapter(activity,mediaManager.getPlaylistByID(string),musicManager.getCurrSong(), null, null);
 	    			listAdapter.add(s);
 	    		}
 	    		
@@ -792,7 +792,7 @@ public class PlaylistActivityView extends ActivityView {
 			checkAndUpdate();
 			listAdapter.clear();
 			for(String string : allPlaylist){
-				SongListAdapter s = new SongListAdapter(activity,mediaManager.getPlaylistByID(string),musicManager.getCurrSong());
+				SongListAdapter s = new SongListAdapter(activity,mediaManager.getPlaylistByID(string),musicManager.getCurrSong(), null, null);
 				listAdapter.add(s);
 			}
 			if(listAdapter.size() > 0)

@@ -168,12 +168,18 @@ public class CheckSongListActivity extends Activity {
     }
 
     public void goto_PlayerMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("songTable", private_SongList);
-        editor.commit();
+        if (true) {
+        //if (LoginMainActivity.mainPlayActivity == null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("songTable", private_SongList);
+            editor.commit();
 
-        startActivity(intent);
+            startActivity(intent);
+        }
+        else {
+            LoginMainActivity.mainPlayActivity.needRefreshSongList = true;
+        }
 
         finish();
     }
