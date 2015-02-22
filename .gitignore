@@ -44,3 +44,5 @@ Temporary Items
 *.bin
 *.lock
 *.class
+*.apk
+*.dex
