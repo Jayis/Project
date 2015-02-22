@@ -96,7 +96,6 @@ public class MainActivity extends Activity {
         this.registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        LoginMainActivity.mainPlayActivity = this;
         //
 
 		try{
@@ -127,7 +126,8 @@ public class MainActivity extends Activity {
     public void onPreExecute(){ 
     	if(progressdialog == null){
     		progressdialog = new ProgressDialog(this);
-    		progressdialog.setMessage("��J��");
+    		//progressdialog.setMessage("��J��");
+            progressdialog.setMessage("bonbon");
     	}
         progressdialog.show();    
     }
@@ -217,27 +217,7 @@ public class MainActivity extends Activity {
         refreshButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LoginMainActivity.class);
-                startActivity(intent);
-                finish();
-
-                synchronized (MainActivity.class) {
-                    mediaManager = new MediaManager(context);
-
-                    if (musicManager != null) {
-                        musicManager.refresh();
-                    }
-                    else {
-                        musicManager = new MusicManager(context);
-                    }
-                }
-
-                for (String s : statusList) {
-                    if (s == statusList[0])
-                        continue;
-
-                    act.get(s).databaseRefresh();
-                }
+                new kk().execute();
             }
         });
 
@@ -418,6 +398,70 @@ public class MainActivity extends Activity {
         }
     }
 */
+    private class kk extends BG_IfLogin{
+        @Override
+        protected void onPostExecute (Integer result) {
+            try {
+                super.onPostExecute(result);
+
+                if (jsonObject.getInt("login") == 1) {
+                    new ll().execute();
+                }
+                else{
+                    //
+                    new oo().execute();
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class oo extends BG_Login{
+        @Override
+        protected Integer doInBackground (String... param) {
+            LoginMainActivity.seekLastUser();
+            LoginMainActivity.curUser = LoginMainActivity.lastUser;
+            LoginMainActivity.curPassword = LoginMainActivity.lastPassword;
+
+            super.doInBackground(param);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute (Integer result) {
+                super.onPostExecute(result);
+
+                new ll().execute();
+        }
+    }
+
+    private class ll extends BG_CheckSongList{
+        @Override
+        protected void onPostExecute (Integer result) {
+            synchronized (MainActivity.class) {
+                mediaManager = new MediaManager(context);
+
+                if (musicManager != null) {
+                    musicManager.refresh();
+                }
+                else {
+                    musicManager = new MusicManager(context);
+                }
+            }
+
+            for (String s : statusList) {
+                if (s == statusList[0])
+                    continue;
+
+                act.get(s).databaseRefresh();
+            }
+
+            refreshButton.setText("sync done");
+        }
+    }
 
     public static DownloadManager shareDM () {
         return dm;

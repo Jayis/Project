@@ -186,7 +186,7 @@
     <string name="play_str">PLAY</string>
     <string name="playlist">播放清單</string>
     <string name="preference_lastUser">preference_lastUser</string>
-    <string name="refresh">Refresh Database</string>
+    <string name="refresh">Sync Database</string>
     <string name="resume_login">Resume Last Login</string>
     <string name="song">歌曲</string>
     <string name="song_str">Song</string>

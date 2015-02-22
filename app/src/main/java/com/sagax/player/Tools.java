@@ -38,7 +38,7 @@ public class Tools {
         activity.setContentView(textView);
     }
 
-    public String getCSRF(DefaultHttpClient httpClient) {
+    public static String getCSRF(DefaultHttpClient httpClient) {
         String csrf = "";
 
         List<Cookie> cookies = httpClient.getCookieStore().getCookies();

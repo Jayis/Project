@@ -18,6 +18,7 @@ import java.io.File;
 
 public class CheckSongListActivity extends Activity {
 
+
     // share static
     private DefaultHttpClient client;
     private SQLiteDatabase database;
@@ -37,6 +38,7 @@ public class CheckSongListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // static initialization
         client = LoginMainActivity.shareClient();
         database = LoginMainActivity.shareDB();
@@ -54,6 +56,7 @@ public class CheckSongListActivity extends Activity {
     {
         int needRefresh;
         JSONObject jsonObject;
+
 
         @Override
         protected Integer doInBackground (String... params) {
@@ -168,18 +171,13 @@ public class CheckSongListActivity extends Activity {
     }
 
     public void goto_PlayerMain(){
-        if (true) {
-        //if (LoginMainActivity.mainPlayActivity == null) {
+
             Intent intent = new Intent(this, MainActivity.class);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("songTable", private_SongList);
             editor.commit();
 
             startActivity(intent);
-        }
-        else {
-            LoginMainActivity.mainPlayActivity.needRefreshSongList = true;
-        }
 
         finish();
     }
